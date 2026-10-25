@@ -8,7 +8,7 @@ import PostList from '../components/PostList.astro';
 import EmailLink from '../components/EmailLink.astro';
 import { site } from '../site.config';
 import { accentHtml, formatMonth } from '../lib/format';
-import { getPosts } from '../lib/substack';
+import { getWriting } from '../lib/substack';
 
 const home = await getEntry('pages', 'home');
 if (!home) throw new Error('Missing src/content/pages/home.md');
@@ -16,7 +16,7 @@ const { Content: Bio } = await render(home);
 
 const papers = (await getOrdered('publications')).filter((p) => p.data.featured);
 const research = (await getOrdered('research')).filter((r) => r.data.featured);
-const posts = (await getPosts()).slice(0, 3);
+const posts = (await getWriting()).slice(0, 3);
 const news = (await getCollection('news')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 5);
 const initials = site.name.split(' ').map((w) => w[0]).join('');
 ---

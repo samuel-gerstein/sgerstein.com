@@ -1,0 +1,20 @@
+# Writing published outside Substack (op-eds, guest posts) and press coverage.
+# kind: writing  → listed with your Substack posts on the home and Writing pages.
+# kind: press    → listed under "In the media" on the Writing page.
+# date: YYYY-MM-DD. summary is optional (one sentence, shown on writing cards).
+
+- id: smile-politely-hyperscale
+  kind: writing
+  title: Hyperscale AI data centers are not inevitable
+  outlet: Smile Politely
+  date: 2026-08-18
+  url: https://www.smilepolitely.com/opinion/hyperscale-ai-data-centers-are-not-inevitable/
+  summary: Op-ed co-written with Bhavana Bheem on the local costs of hyperscale data centers and the case for Champaign County to restrict them.
+
+- id: public-i-data-centers
+  kind: press
+  title: "Data Centers in Champaign County: A Conversation with UIUC Computer Science Students"
+  outlet: Public i
+  date: 2026-06-01
+  url: https://publici.ucimc.org/2026/06/data-centers-in-champaign-county-a-conversation-with-uiuc-computer-science-students/
+  summary: Interview by Amy Young with Bhavana Bheem, Andrea Watkins, and me.

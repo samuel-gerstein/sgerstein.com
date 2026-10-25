@@ -1,11 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
 import PostList from '../components/PostList.astro';
 import { site } from '../site.config';
-import { getPosts } from '../lib/substack';
+import { formatMonth } from '../lib/format';
+import { getWriting } from '../lib/substack';
 
-const posts = await getPosts();
+const posts = await getWriting();
+const press = (await getCollection('media'))
+  .filter((m) => m.data.kind === 'press')
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Base title="Writing">
@@ -21,9 +26,29 @@ const posts = await getPosts();
   }
 
   {posts.length > 0 ? <PostList posts={posts} /> : <p class="note">Posts are on the way. Check back soon.</p>}
+
+  {
+    press.length > 0 && (
+      <>
+        <h2 class="section">In the media</h2>
+        <ul class="dated">
+          {press.map((p) => (
+            <li>
+              <span class="date">{formatMonth(p.data.date)}</span>
+              <span>
+                <a href={p.data.url}>{p.data.title}</a>, <em>{p.data.outlet}</em>
+                {p.data.summary && <span class="sub">{p.data.summary}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
 </Base>
 
 <style>
   .subscribe { margin: 8px 0 32px; }
   .note { margin-top: 24px; max-width: var(--prose); }
+  .dated { max-width: 760px; }
 </style>

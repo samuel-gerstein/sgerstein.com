@@ -1,5 +1,6 @@
 // Fetches your Substack's RSS feed when the site is built. New posts show up
 // on the next build, which GitHub Actions runs daily (see .github/workflows/deploy.yml).
+import { getCollection } from 'astro:content';
 import { XMLParser } from 'fast-xml-parser';
 import { site } from '../site.config';
 
@@ -8,6 +9,7 @@ export interface Post {
   url: string;
   date: Date;
   description: string;
+  source: string;
 }
 
 let cached: Promise<Post[]> | undefined;
@@ -15,6 +17,20 @@ let cached: Promise<Post[]> | undefined;
 export function getPosts(): Promise<Post[]> {
   cached ??= fetchPosts();
   return cached;
+}
+
+// Substack posts plus writing published elsewhere (src/content/media.yaml), newest first.
+export async function getWriting(): Promise<Post[]> {
+  const elsewhere = (await getCollection('media'))
+    .filter((m) => m.data.kind === 'writing')
+    .map((m) => ({
+      title: m.data.title,
+      url: m.data.url,
+      date: m.data.date,
+      description: m.data.summary ?? '',
+      source: m.data.outlet,
+    }));
+  return [...(await getPosts()), ...elsewhere].sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
 async function fetchPosts(): Promise<Post[]> {
@@ -32,6 +48,7 @@ async function fetchPosts(): Promise<Post[]> {
         url: text(item.link),
         date: new Date(text(item.pubDate)),
         description: stripHtml(text(item.description)),
+        source: 'Substack',
       }))
       .filter((p) => p.title && p.url)
       .sort((a, b) => b.date.getTime() - a.date.getTime());

@@ -87,4 +87,16 @@ const news = defineCollection({
   }),
 });
 
-export const collections = { pages, publications, research, projects, teaching, news };
+const media = defineCollection({
+  loader: file('src/content/media.yaml'),
+  schema: z.object({
+    kind: z.enum(['writing', 'press']),
+    title: z.string(),
+    outlet: z.string(),
+    date: z.coerce.date(),
+    url: z.string(),
+    summary: z.string().optional(),
+  }),
+});
+
+export const collections = { pages, publications, research, projects, teaching, news, media };

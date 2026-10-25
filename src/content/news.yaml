@@ -12,3 +12,13 @@
 - id: tprc
   date: 2026-09-01
   text: "AI Localism won 2nd place for TPRC Best Student Paper."
+
+- id: smile-politely-oped
+  date: 2026-08-18
+  text: Published an op-ed with Bhavana Bheem in Smile Politely, "Hyperscale AI data centers are not inevitable."
+  link: https://www.smilepolitely.com/opinion/hyperscale-ai-data-centers-are-not-inevitable/
+
+- id: public-i-interview
+  date: 2026-06-01
+  text: Interviewed by Public i about proposed data centers in Champaign County.
+  link: https://publici.ucimc.org/2026/06/data-centers-in-champaign-county-a-conversation-with-uiuc-computer-science-students/

@@ -13,7 +13,7 @@ const { posts } = Astro.props;
   {
     posts.map((post) => (
       <a class="card" href={post.url}>
-        <span class="kicker">{formatMonth(post.date)} · Substack</span>
+        <span class="kicker">{formatMonth(post.date)} · {post.source}</span>
         <h3>{post.title}</h3>
         {post.description && <p>{post.description}</p>}
       </a>
