@@ -17,24 +17,26 @@
   title: Representation fusion for climate foundation models
   org: IBM-Illinois Discovery Accelerator Institute
   dates: 2024 – 2025
-  summary: Team project extending IBM/NASA's Prithvi climate foundation model with graph-based and multimodal representations for weather, crop-yield, and climate-risk forecasting.
+  summary: Team project extending IBM/NASA's Prithvi climate foundation model with graph-based and multimodal representations for weather, crop, and climate-risk forecasting.
   details:
-    - Co-developed, with a teammate, crop-yield models built on GraphCast representations, reducing crop-indemnity payout estimation error by 15%.
+    - Co-developed, with Dhanish Natarajan, neural network models predicting crop indemnities across 3,144 U.S. counties; adding GraphCast representations reduced test MSE by 15% (R² 0.70 → 0.74).
     - Contributed to design discussions for a multimodal architecture fusing satellite imagery with weather-station data across spatial and temporal scales.
     - Contributed to design discussions for extending Prithvi with graph-based representations; the team's framework improved masked-region and autoregressive prediction.
-    # TODO (Samuel): add where the poster was presented, if anywhere (e.g. a symposium name and year).
-    - Co-created a research poster presenting the work.
+    - Presented at the UIUC Undergraduate Research Symposium (2025).
   featured: true
+  links:
+    poster: /posters/neural-representations-climate-models.webp
 
 - id: contextual-engineering
-  title: Contextual utility design on the Navajo Nation
+  title: Contextual engineering for community water systems
   org: Contextual Engineering Research Group, UIUC
   dates: 2023
-  summary: Entropy-maximization models and a qualitative coding method to inform community-centered water and power infrastructure.
+  summary: Qualitative and computational methods to center community needs in the design of water and power infrastructure.
   details:
+    - Co-developed, with Annabelle Epplin and Cathy Li, a qualitative coding process and master codebook for community interviews about a water system in Clarinero, Honduras, reaching moderate-to-substantial inter-rater agreement (Fleiss' κ = 0.56–0.69).
     - Modeled community characteristics via entropy maximization to inform water infrastructure design.
-    - Developed a qualitative coding method for engineers with 0.70 inter-rater agreement (Fleiss' kappa).
-    - REU fellowship in Bodaway Gap, Arizona, studying ethnography in the algorithm design process.
+    - REU fellowship in Bodaway Gap, Arizona, on the Navajo Nation, studying ethnography in the algorithm design process.
+    - Presented at the UIUC Undergraduate Research Symposium (2023).
   award: Outstanding Research Poster Award
   featured: true
   links:
