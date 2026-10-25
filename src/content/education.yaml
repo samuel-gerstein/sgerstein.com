@@ -9,6 +9,5 @@
 
 - id: fau
   school: Florida Atlantic University
-  # TODO (Samuel): confirm this describes how you took FAU courses.
   degree: Computer Science coursework through FAU High School dual enrollment
   dates: 2019 – 2022
