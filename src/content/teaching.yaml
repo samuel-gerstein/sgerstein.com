@@ -1,4 +1,4 @@
-# kind is either teaching or service. Shown in this order within each group.
+# kind is either teaching or service. Newest first within each group (shown in this order).
 
 - id: fau-calc2
   kind: teaching
@@ -14,20 +14,20 @@
   dates: May 2026
   summary: Spoke as a member of the public on proposed data centers in Champaign County.
 
-- id: ieee-reviewer
+- id: hackillinois
   kind: service
-  role: Peer Reviewer
-  org: IEEE Computational Intelligence Magazine
-  dates: 2022
+  role: Outreach
+  org: HackIllinois
+  dates: 2023 – 2024
 
 - id: uiuc-energy-committee
   kind: service
   role: Voting Member, Energy Committee
   org: University of Illinois Urbana-Champaign
-  dates: ""
+  dates: 2023
 
-- id: hackillinois
+- id: ieee-reviewer
   kind: service
-  role: Outreach
-  org: HackIllinois
-  dates: ""
+  role: Peer Reviewer
+  org: IEEE Computational Intelligence Magazine
+  dates: 2022
