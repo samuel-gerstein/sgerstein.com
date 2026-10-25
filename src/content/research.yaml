@@ -23,6 +23,8 @@
     - Contributed to design discussions for a multimodal architecture fusing satellite imagery with weather-station data across spatial and temporal scales.
     - Contributed to design discussions for extending Prithvi with graph-based representations; the team's framework improved masked-region and autoregressive prediction.
     - Presented at the UIUC Undergraduate Research Symposium (2025).
+    - "PIs: Dr. Jingrui He, Dr. Hanghang Tong, and Dr. Elizabeth Ainsworth. Supported by the Illinois Scholars Undergraduate Research (ISUR) program."
+  award: IIDAI URE Fellow
   featured: true
   links:
     poster: /posters/neural-representations-climate-models.webp
