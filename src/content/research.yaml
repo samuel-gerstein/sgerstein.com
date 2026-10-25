@@ -17,11 +17,13 @@
   title: Representation fusion for climate foundation models
   org: IBM-Illinois Discovery Accelerator Institute
   dates: 2024 – 2025
-  summary: Graph-based and multimodal extensions to IBM/NASA's Prithvi for weather, crop yield, and climate-risk forecasting.
+  summary: Team project extending IBM/NASA's Prithvi climate foundation model with graph-based and multimodal representations for weather, crop-yield, and climate-risk forecasting.
   details:
-    - Built a multimodal architecture fusing satellite imagery with weather-station data across spatial and temporal scales.
-    - Extended Prithvi with graph-based representations, improving masked-region and autoregressive prediction.
-    - Developed crop-yield models from GraphCast representations, reducing indemnity payout estimation error by 15%.
+    - Co-developed, with a teammate, crop-yield models built on GraphCast representations, reducing crop-indemnity payout estimation error by 15%.
+    - Contributed to design discussions for a multimodal architecture fusing satellite imagery with weather-station data across spatial and temporal scales.
+    - Contributed to design discussions for extending Prithvi with graph-based representations; the team's framework improved masked-region and autoregressive prediction.
+    # TODO (Samuel): add where the poster was presented, if anywhere (e.g. a symposium name and year).
+    - Co-created a research poster presenting the work.
   featured: true
 
 - id: contextual-engineering
