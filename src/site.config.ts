@@ -17,7 +17,7 @@ export const site = {
 
   // Put a square photo at public/headshot.jpg and set this to '/headshot.jpg'.
   // Leave empty to show your initials instead.
-  photo: '',
+  photo: '/headshot.jpg',
 
   // Links shown on the home page and in the footer. Remove any you don't want.
   // TODO: add ORCID once you have it; empty ones are hidden.
