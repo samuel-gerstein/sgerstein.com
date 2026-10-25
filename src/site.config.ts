@@ -20,9 +20,9 @@ export const site = {
   photo: '',
 
   // Links shown on the home page and in the footer. Remove any you don't want.
-  // TODO: fill in Scholar and ORCID once you have them; empty ones are hidden.
+  // TODO: add ORCID once you have it; empty ones are hidden.
   links: {
-    scholar: '',
+    scholar: 'https://scholar.google.com/citations?user=crI5YrYAAAAJ',
     orcid: '',
     github: 'https://github.com/samuel-gerstein',
     linkedin: 'https://www.linkedin.com/in/samuelgerstein',

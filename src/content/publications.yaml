@@ -4,10 +4,10 @@
 
 - id: ai-localism
   title: "AI Localism: Counter Imaginaries from City AI Governance"
-  # TODO (Samuel): confirm the exact author list and order.
-  authors: [Bhavana Bheem, Samuel Gerstein, et al.]
-  venue: AAAI/ACM Conference on AI, Ethics, and Society (AIES)
+  authors: [B. Bheem, S. Gerstein, K. Karahalios, M. R. Sanfilippo]
+  venue: Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society (AIES)
   year: 2026
   award: TPRC Best Student Paper, 2nd Place
   featured: true
-  links: {}
+  links:
+    paper: https://doi.org/10.1609/aies.v9i1.43153
