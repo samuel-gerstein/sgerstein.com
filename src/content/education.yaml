@@ -1,0 +1,14 @@
+# Education, newest first. details are optional short lines shown under the degree.
+
+- id: uiuc
+  school: University of Illinois Urbana-Champaign
+  degree: B.S. Computer Science and B.S. Statistics, Minor in Mathematics
+  dates: 2022 – 2026
+  details:
+    - "GPA: 3.93/4.00"
+
+- id: fau
+  school: Florida Atlantic University
+  # TODO (Samuel): confirm this describes how you took FAU courses.
+  degree: Computer Science coursework through FAU High School dual enrollment
+  dates: 2019 – 2022

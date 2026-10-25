@@ -119,4 +119,15 @@ const honors = defineCollection({
   }),
 });
 
-export const collections = { pages, publications, research, projects, teaching, news, media, honors };
+const education = defineCollection({
+  loader: yamlList('src/content/education.yaml'),
+  schema: z.object({
+    order: z.number(),
+    school: z.string(),
+    degree: z.string(),
+    dates: z.coerce.string(),
+    details: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { pages, publications, research, projects, teaching, news, media, honors, education };

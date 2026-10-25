@@ -17,6 +17,7 @@ const { Content: Bio } = await render(home);
 
 const papers = (await getOrdered('publications')).filter((p) => p.data.featured);
 const research = (await getOrdered('research')).filter((r) => r.data.featured);
+const education = await getOrdered('education');
 const posts = (await getWriting()).slice(0, 3);
 const news = (await getCollection('news')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 5);
 const initials = site.name.split(' ').map((w) => w[0]).join('');
@@ -82,6 +83,28 @@ const initials = site.name.split(' ').map((w) => w[0]).join('');
   <p><a href="/research/">All research →</a></p>
 
   {
+    education.length > 0 && (
+      <>
+        <h2 class="section">Education</h2>
+        <ul class="dated education">
+          {education.map((e) => (
+            <li>
+              <span class="date">{e.data.dates}</span>
+              <span>
+                <strong>{e.data.school}</strong>
+                <span class="sub">{e.data.degree}</span>
+                {e.data.details.map((d) => (
+                  <span class="sub">{d}</span>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  {
     posts.length > 0 && (
       <>
         <h2 class="section">Recent writing</h2>
@@ -115,6 +138,8 @@ const initials = site.name.split(' ').map((w) => w[0]).join('');
   .bio { font-size: 18px; color: var(--ink-soft); max-width: 580px; margin-bottom: 22px; }
   .bio :global(p) { margin: 0 0 0.8em; }
   .tags { margin-bottom: 26px; }
+  .education { max-width: 760px; }
+  .education li { grid-template-columns: 110px 1fr; }
   .photo { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; }
   .initials { background: linear-gradient(135deg, var(--photo-a), var(--photo-b)); display: grid; place-items: center; color: var(--accent); font-family: var(--serif); font-size: 64px; font-weight: 600; }
   @media (max-width: 720px) {

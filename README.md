@@ -17,6 +17,7 @@ Built with [Astro](https://astro.build), deployed to GitHub Pages. Writing lives
 | News items on the home page | `src/content/news.yaml` |
 | Op-eds and press coverage | `src/content/media.yaml` |
 | Honors & awards | `src/content/honors.yaml` |
+| Education | `src/content/education.yaml` |
 | Posters | `public/posters/` (link them from `research.yaml`) |
 | CV PDF | `public/cv.pdf` |
 | Headshot | `public/headshot.jpg` (then set `photo` in `src/site.config.ts`) |
