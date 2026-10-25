@@ -1,17 +1,14 @@
 ---
-import { existsSync } from 'node:fs';
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
-
-// Drop your CV at public/cv.pdf and it appears here.
-const hasPdf = existsSync('public/cv.pdf');
+import { hasCv } from '../lib/cv';
 ---
 
 <Base title="CV">
   <PageIntro id="cv" />
 
   {
-    hasPdf ? (
+    hasCv ? (
       <>
         <div class="btns">
           <a class="btn primary" href="/cv.pdf" download>Download PDF</a>

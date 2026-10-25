@@ -11,7 +11,8 @@
   details:
     - Collected all 77 AI policies from 55 U.S. local governments through systematic searches and policy repositories.
     - Conducted the literature review, contributed to study design, and co-wrote the methodology.
-  featured: false
+    - Began in the Social Spaces Lab at UIUC, which has since become the Social Algorithms Group.
+  featured: true
 
 - id: ibm-climate
   title: Representation fusion for climate foundation models
@@ -25,7 +26,7 @@
     - Presented at the UIUC Undergraduate Research Symposium (2025).
     - "PIs: Dr. Jingrui He, Dr. Hanghang Tong, and Dr. Elizabeth Ainsworth. Supported by the Illinois Scholars Undergraduate Research (ISUR) program."
   award: IIDAI URE Fellow
-  featured: true
+  featured: false
   links:
     poster: /posters/neural-representations-climate-models.webp
 

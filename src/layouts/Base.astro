@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { site } from '../site.config';
 import EmailLink from '../components/EmailLink.astro';
+import { hasCv } from '../lib/cv';
 
 interface Props {
   title?: string;
@@ -12,6 +13,7 @@ const { title, description = site.description } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.name;
 const canonical = new URL(Astro.url.pathname, site.url);
 const path = Astro.url.pathname;
+const nav = site.nav.filter((item) => hasCv || item.href !== '/cv/');
 ---
 
 <!doctype html>
@@ -43,7 +45,7 @@ const path = Astro.url.pathname;
         <a class="logo" href="/">{site.name}</a>
         <nav aria-label="Main">
           {
-            site.nav.map((item) => (
+            nav.map((item) => (
               <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
                 {item.label}
               </a>

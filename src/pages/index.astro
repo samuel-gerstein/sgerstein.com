@@ -6,6 +6,7 @@ import Authors from '../components/Authors.astro';
 import Links from '../components/Links.astro';
 import PostList from '../components/PostList.astro';
 import EmailLink from '../components/EmailLink.astro';
+import { hasCv } from '../lib/cv';
 import { site } from '../site.config';
 import { accentHtml, formatMonth } from '../lib/format';
 import { getWriting } from '../lib/substack';
@@ -37,7 +38,7 @@ const initials = site.name.split(' ').map((w) => w[0]).join('');
       }
       <div class="btns">
         <EmailLink class="btn primary" label="Email me" />
-        <a class="btn" href="/cv/">CV</a>
+        {hasCv && <a class="btn" href="/cv/">CV</a>}
         {site.links.scholar && <a class="btn" href={site.links.scholar}>Scholar</a>}
         {site.links.orcid && <a class="btn" href={site.links.orcid}>ORCID</a>}
         {site.links.github && <a class="btn" href={site.links.github}>GitHub</a>}
