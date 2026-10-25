@@ -4,7 +4,6 @@ headline: Forecasting, AI governance, and *communities* that own their infrastru
 # The little pills under your bio.
 interests:
   - AI policy & governance
-  - Digital degrowth
   - Post-capitalist technology
   - Climate resilience
   - Sociotechnical systems
@@ -13,4 +12,4 @@ interests:
 
 <!-- TODO (Samuel): rewrite this bio in your own voice. 2–4 sentences works best. -->
 
-I'm a data engineer at Bloomberg and a research assistant in the Social Algorithms Group, where I study how localities govern AI and how data centers reshape the communities around them. I'm especially interested in forecasting and optimization for climate-resilient systems that center community ownership and local governance, and in where technology meets post-capitalist thought: what digital degrowth could look like in practice.
+I'm a data engineer at Bloomberg and a research assistant in the Social Algorithms Group, where I study how localities govern AI and how data centers reshape the communities around them. I'm especially interested in forecasting and optimization for climate-resilient systems that center community ownership and local governance, and in where technology meets post-capitalist thought.
