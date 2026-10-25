@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import { getOrdered } from '../lib/collections';
+import PageIntro from '../components/PageIntro.astro';
+import Authors from '../components/Authors.astro';
+import Links from '../components/Links.astro';
+
+const papers = await getOrdered('publications');
+const research = await getOrdered('research');
+---
+
+<Base title="Research">
+  <PageIntro id="research" />
+
+  <h2 class="section">Publications</h2>
+  <ol class="pubs">
+    {
+      papers.map((p) => (
+        <li>
+          <span class="pub-title">{p.data.title}</span>
+          <span class="muted"><Authors authors={p.data.authors} /></span>
+          <span class="muted">
+            <em>{p.data.venue}</em>, {p.data.year}
+            {p.data.status && <> ({p.data.status})</>}
+          </span>
+          {p.data.award && <span class="award">{p.data.award}</span>}
+          <Links links={p.data.links} />
+        </li>
+      ))
+    }
+  </ol>
+
+  <h2 class="section">Research experience</h2>
+  <div class="exp">
+    {
+      research.map((r) => (
+        <article class="card">
+          <span class="kicker">{r.data.org} · {r.data.dates}</span>
+          <h3>{r.data.title}</h3>
+          <p>{r.data.summary}</p>
+          {r.data.details && (
+            <ul>
+              {r.data.details.map((d) => (
+                <li>{d}</li>
+              ))}
+            </ul>
+          )}
+          {r.data.award && <span class="award">{r.data.award}</span>}
+          <Links links={r.data.links} />
+        </article>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .pubs { list-style: none; padding: 0; margin: 0; max-width: 760px; }
+  .pubs li { display: flex; flex-direction: column; gap: 4px; padding: 16px 0 16px 18px; border-left: 3px solid var(--accent); margin-bottom: 12px; }
+  .pub-title { font-weight: 600; font-size: 17px; }
+  .pubs :global(.links) { display: flex; gap: 14px; font-size: 14px; }
+  .exp { display: flex; flex-direction: column; gap: 16px; max-width: 760px; }
+  .exp ul { margin: 6px 0 0; padding-left: 1.2em; color: var(--ink-soft); font-size: 15px; }
+  .exp li { margin: 4px 0; }
+</style>

@@ -1,0 +1,17 @@
+---
+// Page title plus the Markdown intro from src/content/pages/<id>.md.
+import { getEntry, render } from 'astro:content';
+
+interface Props {
+  id: string;
+}
+
+const entry = await getEntry('pages', Astro.props.id);
+if (!entry) throw new Error(`Missing src/content/pages/${Astro.props.id}.md`);
+const { Content } = await render(entry);
+---
+
+<header class="page-head">
+  <h1>{entry.data.title}</h1>
+  <div class="prose"><Content /></div>
+</header>

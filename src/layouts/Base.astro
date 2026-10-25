@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import { site } from '../site.config';
+import EmailLink from '../components/EmailLink.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : site.name;
+const canonical = new URL(Astro.url.pathname, site.url);
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {site.photo && <meta property="og:image" content={new URL(site.photo, site.url)} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="top">
+      <div class="wrap in">
+        <a class="logo" href="/">{site.name}</a>
+        <nav aria-label="Main">
+          {
+            site.nav.map((item) => (
+              <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+
+    <footer class="wrap foot">
+      <span>© {new Date().getFullYear()} {site.name}</span>
+      <span class="foot-links">
+        <EmailLink />
+        {site.substack && <a href={site.substack}>Substack</a>}
+        {site.links.scholar && <a href={site.links.scholar}>Scholar</a>}
+        {site.links.github && <a href={site.links.github}>GitHub</a>}
+        {site.links.linkedin && <a href={site.links.linkedin}>LinkedIn</a>}
+      </span>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--bar);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .in { display: flex; justify-content: space-between; align-items: center; gap: 8px 24px; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; }
+  .logo { font-family: var(--serif); font-weight: 600; font-size: 19px; color: var(--ink); text-decoration: none; }
+  nav { display: flex; gap: 20px; overflow-x: auto; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; }
+  nav a:hover, nav a[aria-current='page'] { color: var(--accent); }
+  main { padding-bottom: 80px; min-height: 60vh; }
+  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 24px; padding-bottom: 40px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; }
+  .foot-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  .foot-links :global(a) { color: var(--muted); text-decoration: none; }
+  .foot-links :global(a:hover) { color: var(--accent); }
+  @media (max-width: 640px) {
+    .in { flex-direction: column; align-items: flex-start; }
+    nav { gap: 16px; width: 100%; }
+  }
+</style>

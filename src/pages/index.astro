@@ -1,0 +1,123 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { getOrdered } from '../lib/collections';
+import Authors from '../components/Authors.astro';
+import Links from '../components/Links.astro';
+import PostList from '../components/PostList.astro';
+import EmailLink from '../components/EmailLink.astro';
+import { site } from '../site.config';
+import { accentHtml, formatMonth } from '../lib/format';
+import { getPosts } from '../lib/substack';
+
+const home = await getEntry('pages', 'home');
+if (!home) throw new Error('Missing src/content/pages/home.md');
+const { Content: Bio } = await render(home);
+
+const papers = (await getOrdered('publications')).filter((p) => p.data.featured);
+const research = (await getOrdered('research')).filter((r) => r.data.featured);
+const posts = (await getPosts()).slice(0, 3);
+const news = (await getCollection('news')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 5);
+const initials = site.name.split(' ').map((w) => w[0]).join('');
+---
+
+<Base>
+  <section class="hero">
+    <div>
+      {home.data.headline && <h1 set:html={accentHtml(home.data.headline)} />}
+      <div class="bio"><Bio /></div>
+      {
+        home.data.interests && (
+          <div class="tags">
+            {home.data.interests.map((t) => (
+              <span class="tag">{t}</span>
+            ))}
+          </div>
+        )
+      }
+      <div class="btns">
+        <EmailLink class="btn primary" label="Email me" />
+        <a class="btn" href="/cv/">CV</a>
+        {site.links.scholar && <a class="btn" href={site.links.scholar}>Scholar</a>}
+        {site.links.orcid && <a class="btn" href={site.links.orcid}>ORCID</a>}
+        {site.links.github && <a class="btn" href={site.links.github}>GitHub</a>}
+        {site.links.linkedin && <a class="btn" href={site.links.linkedin}>LinkedIn</a>}
+      </div>
+    </div>
+    {
+      site.photo ? (
+        <img class="photo" src={site.photo} alt={`Photo of ${site.name}`} width="220" height="220" />
+      ) : (
+        <div class="photo initials" aria-hidden="true">{initials}</div>
+      )
+    }
+  </section>
+
+  <h2 class="section">Research</h2>
+  <div class="grid">
+    {
+      papers.map((p) => (
+        <div class="card">
+          <span class="kicker">Publication · {p.data.venue.match(/\(([^)]+)\)/)?.[1] ?? p.data.venue} {p.data.year}</span>
+          <h3>{p.data.title}</h3>
+          <p><Authors authors={p.data.authors} /></p>
+          {p.data.award && <span class="award">{p.data.award}</span>}
+          <Links links={p.data.links} />
+        </div>
+      ))
+    }
+    {
+      research.map((r) => (
+        <div class="card">
+          <span class="kicker">{r.data.org} · {r.data.dates}</span>
+          <h3>{r.data.title}</h3>
+          <p>{r.data.summary}</p>
+          {r.data.award && <span class="award">{r.data.award}</span>}
+        </div>
+      ))
+    }
+  </div>
+  <p><a href="/research/">All research →</a></p>
+
+  {
+    posts.length > 0 && (
+      <>
+        <h2 class="section">Recent writing</h2>
+        <PostList posts={posts} />
+        <p><a href="/writing/">All posts →</a></p>
+      </>
+    )
+  }
+
+  {
+    news.length > 0 && (
+      <>
+        <h2 class="section">News</h2>
+        <ul class="dated">
+          {news.map((n) => (
+            <li>
+              <span class="date">{formatMonth(n.data.date)}</span>
+              <span>{n.data.link ? <a href={n.data.link}>{n.data.text}</a> : n.data.text}</span>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</Base>
+
+<style>
+  .hero { display: grid; grid-template-columns: 1fr 220px; gap: 48px; align-items: center; padding: 72px 0 24px; }
+  h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(34px, 6vw, 54px); line-height: 1.08; margin: 0 0 20px; letter-spacing: -0.01em; }
+  h1 :global(em) { font-style: normal; color: var(--accent); }
+  .bio { font-size: 18px; color: var(--ink-soft); max-width: 580px; margin-bottom: 22px; }
+  .bio :global(p) { margin: 0 0 0.8em; }
+  .tags { margin-bottom: 26px; }
+  .photo { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; }
+  .initials { background: linear-gradient(135deg, var(--photo-a), var(--photo-b)); display: grid; place-items: center; color: var(--accent); font-family: var(--serif); font-size: 64px; font-weight: 600; }
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; padding-top: 40px; }
+    .photo { width: 120px; height: 120px; order: -1; }
+    .initials { font-size: 36px; }
+  }
+</style>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  authors: string[];
+}
+
+const { authors } = Astro.props;
+const isMe = (name: string) => /gerstein/i.test(name);
+---
+
+{
+  authors.map((name, i) => (
+    <>
+      {isMe(name) ? <strong>{name}</strong> : name}
+      {i < authors.length - 1 && ', '}
+    </>
+  ))
+}

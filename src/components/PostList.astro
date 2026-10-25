@@ -1,0 +1,22 @@
+---
+import type { Post } from '../lib/substack';
+import { formatMonth } from '../lib/format';
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<div class="grid">
+  {
+    posts.map((post) => (
+      <a class="card" href={post.url}>
+        <span class="kicker">{formatMonth(post.date)} · Substack</span>
+        <h3>{post.title}</h3>
+        {post.description && <p>{post.description}</p>}
+      </a>
+    ))
+  }
+</div>

@@ -1,0 +1,36 @@
+---
+import { existsSync } from 'node:fs';
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+
+// Drop your CV at public/cv.pdf and it appears here.
+const hasPdf = existsSync('public/cv.pdf');
+---
+
+<Base title="CV">
+  <PageIntro id="cv" />
+
+  {
+    hasPdf ? (
+      <>
+        <div class="btns">
+          <a class="btn primary" href="/cv.pdf" download>Download PDF</a>
+          <a class="btn" href="/cv.pdf">Open in new tab</a>
+        </div>
+        <object class="pdf" data="/cv.pdf" type="application/pdf" aria-label="CV">
+          <p class="note">
+            Your browser can't show the PDF here. <a href="/cv.pdf">Open the CV</a>.
+          </p>
+        </object>
+      </>
+    ) : (
+      <p class="note">CV coming soon.</p>
+    )
+  }
+</Base>
+
+<style>
+  .btns { margin: 8px 0 24px; }
+  .pdf { width: 100%; height: 85vh; min-height: 600px; border: 1px solid var(--rule); border-radius: 12px; background: var(--card); }
+  @media (max-width: 720px) { .pdf { display: none; } }
+</style>

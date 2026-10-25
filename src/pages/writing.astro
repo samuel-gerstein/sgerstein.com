@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import PostList from '../components/PostList.astro';
+import { site } from '../site.config';
+import { getPosts } from '../lib/substack';
+
+const posts = await getPosts();
+---
+
+<Base title="Writing">
+  <PageIntro id="writing" />
+
+  {
+    site.substack && (
+      <div class="btns subscribe">
+        <a class="btn primary" href={new URL('/subscribe', site.substack).href}>Subscribe on Substack</a>
+        <a class="btn" href={site.substack}>Visit the Substack</a>
+      </div>
+    )
+  }
+
+  {posts.length > 0 ? <PostList posts={posts} /> : <p class="note">Posts are on the way. Check back soon.</p>}
+</Base>
+
+<style>
+  .subscribe { margin: 8px 0 32px; }
+  .note { margin-top: 24px; max-width: var(--prose); }
+</style>

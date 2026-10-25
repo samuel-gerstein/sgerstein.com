@@ -1,0 +1,44 @@
+# Research experience, in the order you want it shown.
+# summary: one or two sentences (shown on cards). details: optional bullets (shown on the Research page).
+# featured: true puts it on the home page (2 or 3 works best alongside featured papers).
+
+- id: social-algorithms
+  title: Local AI governance and the community dynamics of data centers
+  # TODO (Samuel): decide how to word this affiliation (see note from Claude).
+  org: Social Algorithms Group (Prof. Karrie Karahalios)
+  dates: 2025 – present
+  summary: Qualitative study of how U.S. localities regulate AI absent federal rules, and how data centers affect host communities.
+  details:
+    - Collected all 77 AI policies from 55 U.S. local governments through systematic searches and policy repositories.
+    - Led the literature review, contributed to study design, and co-wrote the methodology.
+  featured: false
+
+- id: ibm-climate
+  title: Representation fusion for climate foundation models
+  org: IBM-Illinois Discovery Accelerator Institute
+  dates: 2024 – 2025
+  summary: Graph-based and multimodal extensions to IBM/NASA's Prithvi for weather, crop yield, and climate-risk forecasting.
+  details:
+    - Built a multimodal architecture fusing satellite imagery with weather-station data across spatial and temporal scales.
+    - Extended Prithvi with graph-based representations, improving masked-region and autoregressive prediction.
+    - Developed crop-yield models from GraphCast representations, reducing indemnity payout estimation error by 15%.
+  featured: true
+
+- id: contextual-engineering
+  title: Contextual utility design on the Navajo Nation
+  org: Contextual Engineering Research Group, UIUC
+  dates: 2023
+  summary: Entropy-maximization models and a qualitative coding method to inform community-centered water and power infrastructure.
+  details:
+    - Modeled community characteristics via entropy maximization to inform water infrastructure design.
+    - Developed a qualitative coding method for engineers with 0.70 inter-rater agreement (Cohen's kappa).
+    - REU fellowship in Bodaway Gap, Arizona, studying ethnography in the algorithm design process.
+  award: Outstanding Research Poster Award
+  featured: true
+
+- id: fau-federated
+  title: Federated learning for smart grids
+  org: Florida Atlantic University (Dr. Zhen Ni)
+  dates: 2021 – 2022
+  summary: Federated learning approaches for forecasting in carbon-neutral smart homes and grids.
+  featured: false

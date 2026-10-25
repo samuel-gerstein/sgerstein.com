@@ -1,0 +1,15 @@
+# Short updates for the home page, any order (they're sorted newest first).
+# date: YYYY-MM-DD (the day is not shown). link is optional.
+
+- id: bloomberg
+  date: 2026-08-01
+  text: Started as a Data Engineer at Bloomberg, supporting Bloomberg Law.
+
+- id: graduated
+  date: 2026-05-15
+  text: Graduated from UIUC with B.S. degrees in Computer Science and Statistics.
+
+- id: tprc
+  date: 2026-01-01
+  # TODO (Samuel): correct the date.
+  text: "AI Localism won 2nd place for TPRC Best Student Paper."

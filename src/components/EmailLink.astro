@@ -1,0 +1,21 @@
+---
+// Builds the mailto link in the browser so the address isn't sitting in the HTML for scrapers.
+import { site } from '../site.config';
+
+interface Props {
+  class?: string;
+  label?: string;
+}
+
+const { class: className, label = 'Email' } = Astro.props;
+const { user, domain } = site.email;
+---
+
+<a class:list={['email-link', className]} href="#" data-u={user} data-d={domain}>{label}</a>
+<noscript>({user} [at] {domain})</noscript>
+
+<script>
+  for (const a of document.querySelectorAll<HTMLAnchorElement>('a.email-link')) {
+    a.href = `mailto:${a.dataset.u}@${a.dataset.d}`;
+  }
+</script>

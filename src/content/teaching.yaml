@@ -1,0 +1,26 @@
+# kind is either teaching or service. Shown in this order within each group.
+
+- id: fau-calc2
+  kind: teaching
+  role: Learning Assistant, Calculus II
+  org: Florida Atlantic University
+  dates: 2021 – 2022
+  summary: Held weekly small-group office hours and facilitated in-lecture group work; completed weekly pedagogy training.
+
+- id: ieee-reviewer
+  kind: service
+  role: Peer Reviewer
+  org: IEEE
+  dates: ""
+
+- id: uiuc-energy-committee
+  kind: service
+  role: Voting Member, Energy Committee
+  org: University of Illinois Urbana-Champaign
+  dates: ""
+
+- id: hackillinois
+  kind: service
+  role: Outreach
+  org: HackIllinois
+  dates: ""

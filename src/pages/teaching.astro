@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { getOrdered } from '../lib/collections';
+import PageIntro from '../components/PageIntro.astro';
+
+const items = await getOrdered('teaching');
+const groups = [
+  { title: 'Teaching', items: items.filter((i) => i.data.kind === 'teaching') },
+  { title: 'Service', items: items.filter((i) => i.data.kind === 'service') },
+].filter((g) => g.items.length > 0);
+---
+
+<Base title="Teaching & Service">
+  <PageIntro id="teaching" />
+
+  {
+    groups.map((g) => (
+      <section>
+        <h2 class="section">{g.title}</h2>
+        <ul class="dated">
+          {g.items.map((i) => (
+            <li>
+              <span class="date">{i.data.dates}</span>
+              <span>
+                <strong>{i.data.role}</strong>, {i.data.org}
+                {i.data.summary && <span class="sub">{i.data.summary}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  .dated { max-width: 760px; }
+  .dated li { grid-template-columns: 110px 1fr; }
+</style>

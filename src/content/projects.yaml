@@ -1,0 +1,26 @@
+# Projects, in the order you want them shown.
+# links: add any of code, demo, writeup, paper, with a URL.
+
+- id: ameren-load-forecasting
+  title: Day-ahead electrical demand forecasting
+  context: Ameren · 2023 – 2025
+  summary: Neural forecasting pipelines for statewide demand at 2% error, Ameren's first internal forecasting tool, with a projected $12M annual savings in MISO trading.
+  tags: [Forecasting, Databricks, Ray]
+
+- id: ameren-digital-twins
+  title: Digital twins for renewable siting
+  context: Ameren · 2024
+  summary: Simulated production at proposed solar and wind sites from historical weather to validate geographic diversity for regulators.
+  tags: [Energy, Simulation]
+
+- id: apple-mcp
+  title: MCP tools for retrieval across teams
+  context: Apple · 2025
+  summary: Model Context Protocol client-server tools enabling RAG workflows across teams while preserving privacy boundaries.
+  tags: [LLMs, MCP, RAG]
+
+- id: apple-transcription-eval
+  title: Transcription model evaluation at scale
+  context: Apple · 2025
+  summary: Evaluation pipelines measuring transcription accuracy across 10,000+ hours of Apple Music Radio interviews.
+  tags: [Evaluation, Speech]

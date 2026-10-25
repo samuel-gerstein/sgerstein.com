@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import { getOrdered } from '../lib/collections';
+import PageIntro from '../components/PageIntro.astro';
+import Links from '../components/Links.astro';
+
+const projects = await getOrdered('projects');
+---
+
+<Base title="Projects">
+  <PageIntro id="projects" />
+
+  <div class="grid list">
+    {
+      projects.map((p) => (
+        <article class="card">
+          {p.data.context && <span class="kicker">{p.data.context}</span>}
+          <h3>{p.data.title}</h3>
+          <p>{p.data.summary}</p>
+          {p.data.tags.length > 0 && (
+            <div class="tags">
+              {p.data.tags.map((t) => (
+                <span class="tag small">{t}</span>
+              ))}
+            </div>
+          )}
+          <Links links={p.data.links} />
+        </article>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .list { margin-top: 32px; }
+  .tags { margin-top: 6px; }
+</style>

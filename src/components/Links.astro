@@ -1,0 +1,19 @@
+---
+import { linkLabel } from '../lib/format';
+
+interface Props {
+  links?: Record<string, string>;
+}
+
+const entries = Object.entries(Astro.props.links ?? {}).filter(([, url]) => url);
+---
+
+{
+  entries.length > 0 && (
+    <div class="links">
+      {entries.map(([key, url]) => (
+        <a href={url}>{linkLabel(key)}</a>
+      ))}
+    </div>
+  )
+}

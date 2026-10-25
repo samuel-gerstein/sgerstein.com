@@ -1,0 +1,13 @@
+# Papers, newest first. Any author containing "Gerstein" is shown in bold.
+# links: add any of paper, preprint, code, slides, poster, bibtex, with a URL or a file in public/.
+# featured: true puts it on the home page.
+
+- id: ai-localism
+  title: "AI Localism: Counter Imaginaries from City AI Governance"
+  # TODO (Samuel): confirm the exact author list and order.
+  authors: [Bhavana Bheem, Samuel Gerstein, et al.]
+  venue: AAAI/ACM Conference on AI, Ethics, and Society (AIES)
+  year: 2026
+  award: TPRC Best Student Paper, 2nd Place
+  featured: true
+  links: {}
