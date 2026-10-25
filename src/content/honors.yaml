@@ -9,8 +9,8 @@
 - id: grainger-gfx
   title: Grainger GFX Disaster Resilience Scholar
   org: University of Illinois Urbana-Champaign
-  # TODO (Samuel): add the year.
-  year: ""
+  note: Focus on Puerto Rico
+  year: 2022 – 2023
 
 - id: iidai-ure
   title: IIDAI URE Fellow
@@ -20,7 +20,6 @@
 - id: isur
   title: Illinois Scholars Undergraduate Research (ISUR)
   org: University of Illinois Urbana-Champaign
-  # TODO (Samuel): confirm the years.
   year: 2024 – 2025
 
 - id: poster-award
@@ -31,5 +30,4 @@
 - id: fau-ouri
   title: OURI Undergraduate Research Grant
   org: Florida Atlantic University
-  # TODO (Samuel): add the year.
-  year: ""
+  year: 2021 – 2022
