@@ -1,16 +1,10 @@
-# Honors and awards, shown on the Research page in this order.
+# Honors and awards, newest first (shown on the Research page in this order).
 # year is optional; leave it as "" to show none.
 
 - id: tprc
   title: TPRC Best Student Paper, 2nd Place
   note: 'For "AI Localism: Counter Imaginaries from City AI Governance"'
   year: "2026"
-
-- id: grainger-gfx
-  title: Grainger GFX Disaster Resilience Scholar
-  org: University of Illinois Urbana-Champaign
-  note: Focus on Puerto Rico
-  year: 2022 – 2023
 
 - id: iidai-ure
   title: IIDAI URE Fellow
@@ -26,6 +20,12 @@
   title: Outstanding Research Poster Award
   org: UIUC Undergraduate Research Symposium
   year: "2023"
+
+- id: grainger-gfx
+  title: Grainger GFX Disaster Resilience Scholar
+  org: University of Illinois Urbana-Champaign
+  note: Focus on Puerto Rico
+  year: 2022 – 2023
 
 - id: fau-ouri
   title: OURI Undergraduate Research Grant

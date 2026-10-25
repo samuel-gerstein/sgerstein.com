@@ -1,11 +1,17 @@
-# Projects, in the order you want them shown.
+# Projects, newest first (they show in this order).
 # links: add any of code, demo, writeup, paper, with a URL.
 
-- id: gfx-mangrove-test-stands
-  title: Mangrove test stands for disaster resilience
-  context: Grainger GFX Disaster Resilience Scholars (Dr. Luis Rodriguez) · 2023
-  summary: With Grace Pfeiffer and Aden Weiss, and in partnership with the nonprofit Caras Con Causa, co-designed an ebb-and-flow test stand for growing mangroves in bulk under controlled water level, salinity, and circulation, for student experiments at a school in Guaynabo, Puerto Rico, and traveled to Puerto Rico to work with Caras on site. Also designed a sensor-driven reinforcement-learning pump controller (Raspberry Pi feedback loop, comparison of RL methods); REU students later built the sensors, while the RL control was postponed in favor of a simpler setup the partner's staff could maintain.
-  tags: [Disaster resilience, Community partnership, Sensing & control]
+- id: apple-mcp
+  title: MCP tools for retrieval across teams
+  context: Apple · 2025
+  summary: Model Context Protocol client-server tools enabling RAG workflows across teams while preserving privacy boundaries.
+  tags: [LLMs, MCP, RAG]
+
+- id: apple-transcription-eval
+  title: Transcription model evaluation at scale
+  context: Apple · 2025
+  summary: Evaluation pipelines measuring transcription accuracy across 10,000+ hours of Apple Music Radio interviews.
+  tags: [Evaluation, Speech]
 
 - id: ameren-load-forecasting
   title: Day-ahead electrical demand forecasting
@@ -19,14 +25,8 @@
   summary: Simulated production at proposed solar and wind sites from historical weather to validate geographic diversity for regulators.
   tags: [Energy, Simulation]
 
-- id: apple-mcp
-  title: MCP tools for retrieval across teams
-  context: Apple · 2025
-  summary: Model Context Protocol client-server tools enabling RAG workflows across teams while preserving privacy boundaries.
-  tags: [LLMs, MCP, RAG]
-
-- id: apple-transcription-eval
-  title: Transcription model evaluation at scale
-  context: Apple · 2025
-  summary: Evaluation pipelines measuring transcription accuracy across 10,000+ hours of Apple Music Radio interviews.
-  tags: [Evaluation, Speech]
+- id: gfx-mangrove-test-stands
+  title: Mangrove test stands for disaster resilience
+  context: Grainger GFX Disaster Resilience Scholars (Dr. Luis Rodriguez) · 2023
+  summary: With Grace Pfeiffer and Aden Weiss, and in partnership with the nonprofit Caras Con Causa, co-designed an ebb-and-flow test stand for growing mangroves in bulk under controlled water level, salinity, and circulation, for student experiments at a school in Guaynabo, Puerto Rico, and traveled to Puerto Rico to work with Caras on site. Also designed a sensor-driven reinforcement-learning pump controller (Raspberry Pi feedback loop, comparison of RL methods); REU students later built the sensors, while the RL control was postponed in favor of a simpler setup the partner's staff could maintain.
+  tags: [Disaster resilience, Community partnership, Sensing & control]
