@@ -31,7 +31,7 @@
   summary: Entropy-maximization models and a qualitative coding method to inform community-centered water and power infrastructure.
   details:
     - Modeled community characteristics via entropy maximization to inform water infrastructure design.
-    - Developed a qualitative coding method for engineers with 0.70 inter-rater agreement (Cohen's kappa).
+    - Developed a qualitative coding method for engineers with 0.70 inter-rater agreement (Fleiss' kappa).
     - REU fellowship in Bodaway Gap, Arizona, studying ethnography in the algorithm design process.
   award: Outstanding Research Poster Award
   featured: true
