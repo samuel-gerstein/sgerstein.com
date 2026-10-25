@@ -7,6 +7,7 @@ import Links from '../components/Links.astro';
 
 const papers = await getOrdered('publications');
 const research = await getOrdered('research');
+const honors = await getOrdered('honors');
 ---
 
 <Base title="Research">
@@ -51,6 +52,26 @@ const research = await getOrdered('research');
       ))
     }
   </div>
+
+  {
+    honors.length > 0 && (
+      <>
+        <h2 class="section">Honors &amp; awards</h2>
+        <ul class="dated honors">
+          {honors.map((h) => (
+            <li>
+              <span class="date">{h.data.year}</span>
+              <span>
+                <strong>{h.data.title}</strong>
+                {h.data.org && <>, {h.data.org}</>}
+                {h.data.note && <span class="sub">{h.data.note}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
 </Base>
 
 <style>
@@ -61,4 +82,6 @@ const research = await getOrdered('research');
   .exp { display: flex; flex-direction: column; gap: 16px; max-width: 760px; }
   .exp ul { margin: 6px 0 0; padding-left: 1.2em; color: var(--ink-soft); font-size: 15px; }
   .exp li { margin: 4px 0; }
+  .honors { max-width: 760px; }
+  .honors li { grid-template-columns: 110px 1fr; }
 </style>

@@ -1,0 +1,35 @@
+# Honors and awards, shown on the Research page in this order.
+# year is optional; leave it as "" to show none.
+
+- id: tprc
+  title: TPRC Best Student Paper, 2nd Place
+  note: 'For "AI Localism: Counter Imaginaries from City AI Governance"'
+  year: "2026"
+
+- id: grainger-gfx
+  title: Grainger GFX Disaster Resilience Scholar
+  org: University of Illinois Urbana-Champaign
+  # TODO (Samuel): add the year.
+  year: ""
+
+- id: iidai-ure
+  title: IIDAI URE Fellow
+  org: IBM-Illinois Discovery Accelerator Institute
+  year: 2024 – 2025
+
+- id: isur
+  title: Illinois Scholars Undergraduate Research (ISUR)
+  org: University of Illinois Urbana-Champaign
+  # TODO (Samuel): confirm the years.
+  year: 2024 – 2025
+
+- id: poster-award
+  title: Outstanding Research Poster Award
+  org: UIUC Undergraduate Research Symposium
+  year: "2023"
+
+- id: fau-ouri
+  title: OURI Undergraduate Research Grant
+  org: Florida Atlantic University
+  # TODO (Samuel): add the year.
+  year: ""

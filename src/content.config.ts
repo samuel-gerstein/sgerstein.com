@@ -1,5 +1,6 @@
 // Defines the shape of everything in src/content/. If you mistype a field name
 // in one of those files, the build stops and tells you which file and field.
+import { readFileSync } from 'node:fs';
 import { defineCollection } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
@@ -7,10 +8,18 @@ import { parse } from 'yaml';
 
 // Loads a YAML list and remembers each entry's position, so pages can show
 // entries in the same order you wrote them.
-const yamlList = (path: string) =>
-  file(path, {
+const yamlList = (path: string) => {
+  // Astro only logs YAML syntax errors and builds the page without that section,
+  // so check the file here, where an error stops the build and the live site stays as it was.
+  try {
+    parse(readFileSync(path, 'utf8'));
+  } catch (err) {
+    throw new Error(`${path} has a formatting error. Values containing ": " need quotes.\n${err}`);
+  }
+  return file(path, {
     parser: (text) => (parse(text) ?? []).map((entry: Record<string, unknown>, order: number) => ({ ...entry, order })),
   });
+};
 
 const links = z.record(z.string(), z.string()).optional();
 
@@ -88,7 +97,7 @@ const news = defineCollection({
 });
 
 const media = defineCollection({
-  loader: file('src/content/media.yaml'),
+  loader: yamlList('src/content/media.yaml'),
   schema: z.object({
     kind: z.enum(['writing', 'press']),
     title: z.string(),
@@ -99,4 +108,15 @@ const media = defineCollection({
   }),
 });
 
-export const collections = { pages, publications, research, projects, teaching, news, media };
+const honors = defineCollection({
+  loader: yamlList('src/content/honors.yaml'),
+  schema: z.object({
+    order: z.number(),
+    title: z.string(),
+    org: z.string().optional(),
+    note: z.string().optional(),
+    year: z.coerce.string(),
+  }),
+});
+
+export const collections = { pages, publications, research, projects, teaching, news, media, honors };

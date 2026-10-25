@@ -17,7 +17,8 @@
 - id: ieee-reviewer
   kind: service
   role: Peer Reviewer
-  org: IEEE
+  org: IEEE Computational Intelligence Magazine
+  # TODO (Samuel): add the year(s) you reviewed.
   dates: ""
 
 - id: uiuc-energy-committee

@@ -15,6 +15,9 @@ Built with [Astro](https://astro.build), deployed to GitHub Pages. Writing lives
 | Projects | `src/content/projects.yaml` |
 | Teaching & service | `src/content/teaching.yaml` |
 | News items on the home page | `src/content/news.yaml` |
+| Op-eds and press coverage | `src/content/media.yaml` |
+| Honors & awards | `src/content/honors.yaml` |
+| Posters | `public/posters/` (link them from `research.yaml`) |
 | CV PDF | `public/cv.pdf` |
 | Headshot | `public/headshot.jpg` (then set `photo` in `src/site.config.ts`) |
 
@@ -22,7 +25,7 @@ Search for `TODO` to find everything that still needs your input.
 
 The `.md` files are Markdown: `*italic*`, `**bold**`, `[link text](https://...)`, blank line between paragraphs.
 The `.yaml` files are lists; copy an existing entry and change the values. Each entry needs a unique `id`.
-If you mistype a field, the build stops and names the file and field.
+If you mistype a field or break the YAML formatting (most often an unquoted value containing `: `), the build stops, names the file, and the live site stays as it was.
 
 ## Previewing locally
 
