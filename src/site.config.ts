@@ -2,10 +2,10 @@
 // Your actual writing (bio, research statement, lists) lives in src/content/.
 
 export const site = {
-  name: 'Samuel Gerstein',
+  name: 'Sam Gerstein',
   // Shown under your name in search results and link previews.
   description:
-    'Samuel Gerstein: data engineer at Bloomberg and researcher working on AI governance, forecasting, and community-centered infrastructure.',
+    'Sam (Samuel) Gerstein: data engineer at Bloomberg and researcher working on AI governance, forecasting, and community-centered infrastructure.',
   url: 'https://sgerstein.com',
 
   // Email is split so scrapers can't read it straight from the HTML.
