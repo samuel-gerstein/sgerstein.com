@@ -1,6 +1,12 @@
 # Projects, in the order you want them shown.
 # links: add any of code, demo, writeup, paper, with a URL.
 
+- id: gfx-mangrove-test-stands
+  title: Mangrove test stands for disaster resilience
+  context: Grainger GFX Disaster Resilience Scholars · 2023
+  summary: With Grace Pfeiffer and Aden Weiss, and in partnership with the nonprofit Caras Con Causa, designed an ebb-and-flow test stand for growing mangroves in bulk under controlled water level, salinity, and circulation, for student experiments at a school in Guaynabo, Puerto Rico. My part was the sensor and reinforcement-learning pump control loop, including the Raspberry Pi feedback system and a comparison of RL methods.
+  tags: [Disaster resilience, Community partnership, Sensing & control]
+
 - id: ameren-load-forecasting
   title: Day-ahead electrical demand forecasting
   context: Ameren · 2023 – 2025
