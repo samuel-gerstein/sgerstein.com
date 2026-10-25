@@ -7,7 +7,8 @@ import { z } from 'astro/zod';
 import { parse } from 'yaml';
 
 // Loads a YAML list and remembers each entry's position, so pages can show
-// entries in the same order you wrote them.
+// entries in the same order you wrote them. Entries without an id get one from
+// their position, so entries added in the Pages CMS editor don't need one.
 const yamlList = (path: string) => {
   // Astro only logs YAML syntax errors and builds the page without that section,
   // so check the file here, where an error stops the build and the live site stays as it was.
@@ -17,19 +18,41 @@ const yamlList = (path: string) => {
     throw new Error(`${path} has a formatting error. Values containing ": " need quotes.\n${err}`);
   }
   return file(path, {
-    parser: (text) => (parse(text) ?? []).map((entry: Record<string, unknown>, order: number) => ({ ...entry, order })),
+    parser: (text) =>
+      (parse(text) ?? []).map((entry: Record<string, unknown>, order: number) => ({
+        ...entry,
+        id: entry.id ? String(entry.id) : `item-${order + 1}`,
+        order,
+      })),
   });
 };
 
-const links = z.record(z.string(), z.string()).optional();
+// Form editors may save an empty field as null or "", so optional fields accept both.
+const optText = z
+  .string()
+  .nullish()
+  .transform((v) => v || undefined);
+const looseText = z.preprocess((v) => (v == null ? '' : String(v)), z.string());
+const textList = z
+  .array(z.string().nullish())
+  .nullish()
+  .transform((v) => (v ?? []).filter((item): item is string => !!item));
+const flag = z
+  .boolean()
+  .nullish()
+  .transform((v) => v ?? false);
+const links = z
+  .record(z.string(), z.string().nullish())
+  .nullish()
+  .transform((v) => Object.fromEntries(Object.entries(v ?? {}).filter(([, url]) => url)) as Record<string, string>);
 
 // Long-form prose for each page (bio, research statement, intros).
 const pages = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/pages' }),
   schema: z.object({
-    title: z.string().optional(),
-    headline: z.string().optional(),
-    interests: z.array(z.string()).optional(),
+    title: optText,
+    headline: optText,
+    interests: textList,
   }),
 });
 
@@ -41,9 +64,9 @@ const publications = defineCollection({
     authors: z.array(z.string()),
     venue: z.string(),
     year: z.number(),
-    status: z.string().optional(),
-    award: z.string().optional(),
-    featured: z.boolean().default(false),
+    status: optText,
+    award: optText,
+    featured: flag,
     links,
   }),
 });
@@ -54,11 +77,11 @@ const research = defineCollection({
     order: z.number(),
     title: z.string(),
     org: z.string(),
-    dates: z.coerce.string(),
+    dates: looseText,
     summary: z.string(),
-    details: z.array(z.string()).optional(),
-    award: z.string().optional(),
-    featured: z.boolean().default(false),
+    details: textList,
+    award: optText,
+    featured: flag,
     links,
   }),
 });
@@ -68,9 +91,9 @@ const projects = defineCollection({
   schema: z.object({
     order: z.number(),
     title: z.string(),
-    context: z.string().optional(),
+    context: optText,
     summary: z.string(),
-    tags: z.array(z.string()).default([]),
+    tags: textList,
     links,
   }),
 });
@@ -82,8 +105,8 @@ const teaching = defineCollection({
     kind: z.enum(['teaching', 'service']),
     role: z.string(),
     org: z.string(),
-    dates: z.coerce.string(),
-    summary: z.string().optional(),
+    dates: looseText,
+    summary: optText,
   }),
 });
 
@@ -92,7 +115,7 @@ const news = defineCollection({
   schema: z.object({
     date: z.coerce.date(),
     text: z.string(),
-    link: z.string().optional(),
+    link: optText,
   }),
 });
 
@@ -104,7 +127,7 @@ const media = defineCollection({
     outlet: z.string(),
     date: z.coerce.date(),
     url: z.string(),
-    summary: z.string().optional(),
+    summary: optText,
   }),
 });
 
@@ -113,9 +136,9 @@ const honors = defineCollection({
   schema: z.object({
     order: z.number(),
     title: z.string(),
-    org: z.string().optional(),
-    note: z.string().optional(),
-    year: z.coerce.string(),
+    org: optText,
+    note: optText,
+    year: looseText,
   }),
 });
 
@@ -125,8 +148,8 @@ const education = defineCollection({
     order: z.number(),
     school: z.string(),
     degree: z.string(),
-    dates: z.coerce.string(),
-    details: z.array(z.string()).default([]),
+    dates: looseText,
+    details: textList,
   }),
 });
 

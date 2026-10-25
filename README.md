@@ -2,6 +2,16 @@
 
 Built with [Astro](https://astro.build), deployed to GitHub Pages. Writing lives on Substack and is pulled in automatically.
 
+## Editing with a visual editor (Pages CMS)
+
+Go to https://app.pagescms.org, sign in with GitHub, and open the `sgerstein.com` repo.
+Every section of the site shows up as a form (Pages, Publications, Research experience, and so on).
+Saving commits to `main`, and the site redeploys in about a minute.
+
+- Uploads (posters, `cv.pdf`, a new headshot) go under **Media**.
+- The editor's settings live in `.pages.yml`.
+- Saving a list in the editor rewrites that YAML file without comments; that's expected.
+
 ## Where to edit things
 
 | What | File |
@@ -22,7 +32,7 @@ Built with [Astro](https://astro.build), deployed to GitHub Pages. Writing lives
 | CV PDF | `public/cv.pdf` |
 | Headshot | `public/headshot.jpg` (then set `photo` in `src/site.config.ts`) |
 
-Search for `TODO` to find everything that still needs your input.
+Search for `TODO` (or see the field descriptions in Pages CMS) to find what still needs your input.
 
 The `.md` files are Markdown: `*italic*`, `**bold**`, `[link text](https://...)`, blank line between paragraphs.
 The `.yaml` files are lists; copy an existing entry and change the values. Each entry needs a unique `id`.

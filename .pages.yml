@@ -1,0 +1,281 @@
+# Pages CMS (https://pagescms.org) editor settings: which files appear in the
+# editor and which form fields each one gets. Saving in the editor commits to
+# main, and GitHub Actions redeploys the site.
+
+media:
+  - name: posters
+    label: Posters
+    input: public/posters
+    output: /posters
+    categories: [image, document]
+  - name: files
+    label: Site files (CV, headshot)
+    input: public
+    output: /
+    categories: [image, document]
+
+components:
+  links:
+    type: object
+    label: Links
+    description: Optional. Fill in any that apply; empty ones are hidden on the site.
+    fields:
+      - { name: paper, label: Paper, type: string }
+      - { name: preprint, label: Preprint, type: string }
+      - { name: pdf, label: PDF, type: string }
+      - { name: code, label: Code, type: string }
+      - { name: slides, label: Slides, type: string }
+      - name: poster
+        label: Poster
+        type: file
+        options: { media: posters }
+      - { name: bibtex, label: BibTeX, type: string }
+      - { name: demo, label: Demo, type: string }
+      - { name: writeup, label: Write-up, type: string }
+      - { name: video, label: Video, type: string }
+
+content:
+  - name: pages
+    label: Pages
+    type: group
+    items:
+      - name: home
+        label: Home
+        type: file
+        path: src/content/pages/home.md
+        format: yaml-frontmatter
+        operations: { delete: false }
+        fields:
+          - name: headline
+            label: Headline
+            type: string
+            description: The big line at the top. Wrap a word in *asterisks* to color it green.
+          - name: interests
+            label: Interest tags
+            type: string
+            list: true
+          - name: body
+            label: Bio
+            type: rich-text
+            description: 2–4 sentences, in your own voice.
+            options: { format: markdown, media: false }
+
+      - name: research-page
+        label: Research statement
+        type: file
+        path: src/content/pages/research.md
+        format: yaml-frontmatter
+        operations: { delete: false }
+        fields:
+          - { name: title, label: Page title, type: string }
+          - name: body
+            label: Research statement
+            type: rich-text
+            description: What questions you care about, why, and what you want to work on next. Subheadings are fine.
+            options: { format: markdown, media: false }
+
+      - name: projects-page
+        label: Projects intro
+        type: file
+        path: src/content/pages/projects.md
+        format: yaml-frontmatter
+        operations: { delete: false }
+        fields:
+          - { name: title, label: Page title, type: string }
+          - name: body
+            label: Intro
+            type: rich-text
+            description: One or two sentences above the project cards, or leave empty.
+            options: { format: markdown, media: false }
+
+      - name: writing-page
+        label: Writing intro
+        type: file
+        path: src/content/pages/writing.md
+        format: yaml-frontmatter
+        operations: { delete: false }
+        fields:
+          - { name: title, label: Page title, type: string }
+          - name: body
+            label: Intro
+            type: rich-text
+            description: What you write about.
+            options: { format: markdown, media: false }
+
+      - name: teaching-page
+        label: Teaching & Service intro
+        type: file
+        path: src/content/pages/teaching.md
+        format: yaml-frontmatter
+        operations: { delete: false }
+        fields:
+          - { name: title, label: Page title, type: string }
+          - name: body
+            label: Intro
+            type: rich-text
+            description: Optional. Leave empty to show none.
+            options: { format: markdown, media: false }
+
+      - name: cv-page
+        label: CV intro
+        type: file
+        path: src/content/pages/cv.md
+        format: yaml-frontmatter
+        operations: { delete: false }
+        fields:
+          - { name: title, label: Page title, type: string }
+          - name: body
+            label: Note above the PDF
+            type: rich-text
+            description: Optional, e.g. "Last updated October 2026." Upload the PDF itself as cv.pdf under Media → Site files; the CV page and links appear once it exists.
+            options: { format: markdown, media: false }
+
+  - name: publications
+    label: Publications
+    type: file
+    path: src/content/publications.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - name: authors
+        label: Authors
+        type: string
+        list: true
+        description: In byline order. Any name containing "Gerstein" is shown in bold.
+      - { name: venue, label: Venue, type: string, required: true, description: 'Put the short name in parentheses, e.g. "(AIES)", for the home page card.' }
+      - { name: year, label: Year, type: number, required: true }
+      - { name: status, label: Status, type: string, description: 'Optional, e.g. "to appear" or "under review".' }
+      - { name: award, label: Award, type: string }
+      - { name: featured, label: Show on home page, type: boolean }
+      - { name: links, component: links }
+
+  - name: research
+    label: Research experience
+    type: file
+    path: src/content/research.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - { name: title, label: Project title, type: string, required: true }
+      - { name: org, label: Group or institution, type: string, required: true, description: 'Add an advisor in parentheses if you like, e.g. "Florida Atlantic University (Dr. Zhen Ni)".' }
+      - { name: dates, label: Dates, type: string, required: true, description: 'e.g. "2024 – 2025" or "2025 – present".' }
+      - { name: summary, label: Summary, type: text, required: true, description: One or two sentences, shown on cards. }
+      - { name: details, label: Details, type: string, list: true, description: Bullet points shown on the Research page. }
+      - { name: award, label: Award, type: string }
+      - { name: featured, label: Show on home page, type: boolean }
+      - { name: links, component: links }
+
+  - name: projects
+    label: Projects
+    type: file
+    path: src/content/projects.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: context, label: Where and when, type: string, description: 'e.g. "Apple · 2025".' }
+      - { name: summary, label: Summary, type: text, required: true }
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: links, component: links }
+
+  - name: media
+    label: Writing & press
+    type: file
+    path: src/content/media.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - name: kind
+        label: Kind
+        type: select
+        required: true
+        description: Writing appears with your posts; press appears under "In the media".
+        options:
+          values:
+            - { name: writing, label: Writing (op-ed, guest post) }
+            - { name: press, label: Press (interview, coverage) }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: outlet, label: Outlet, type: string, required: true }
+      - name: date
+        label: Date
+        type: date
+        required: true
+        options: { format: yyyy-MM-dd }
+      - { name: url, label: Link, type: string, required: true }
+      - { name: summary, label: Summary, type: text }
+
+  - name: teaching
+    label: Teaching & service
+    type: file
+    path: src/content/teaching.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - name: kind
+        label: Kind
+        type: select
+        required: true
+        options:
+          values:
+            - { name: teaching, label: Teaching }
+            - { name: service, label: Service }
+      - { name: role, label: Role, type: string, required: true }
+      - { name: org, label: Organization, type: string, required: true }
+      - { name: dates, label: Dates, type: string, description: Leave empty to show none. }
+      - { name: summary, label: Summary, type: text }
+
+  - name: honors
+    label: Honors & awards
+    type: file
+    path: src/content/honors.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - { name: title, label: Honor, type: string, required: true }
+      - { name: org, label: Awarded by, type: string }
+      - { name: note, label: Note, type: string }
+      - { name: year, label: Year(s), type: string, description: Leave empty to show none. }
+
+  - name: education
+    label: Education
+    type: file
+    path: src/content/education.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - { name: school, label: School, type: string, required: true }
+      - { name: degree, label: Degree, type: string, required: true }
+      - { name: dates, label: Dates, type: string, required: true }
+      - { name: details, label: Details, type: string, list: true, description: 'e.g. "GPA: 3.93/4.00".' }
+
+  - name: news
+    label: News
+    type: file
+    path: src/content/news.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - name: date
+        label: Date
+        type: date
+        required: true
+        description: Only the month and year are shown.
+        options: { format: yyyy-MM-dd }
+      - { name: text, label: Text, type: string, required: true }
+      - { name: link, label: Link, type: string }
+
+  - name: site-settings
+    label: Site settings (advanced)
+    type: file
+    path: src/site.config.ts
+    format: code
+    operations: { delete: false }

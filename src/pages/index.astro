@@ -29,7 +29,7 @@ const initials = site.name.split(' ').map((w) => w[0]).join('');
       {home.data.headline && <h1 set:html={accentHtml(home.data.headline)} />}
       <div class="bio"><Bio /></div>
       {
-        home.data.interests && (
+        home.data.interests.length > 0 && (
           <div class="tags">
             {home.data.interests.map((t) => (
               <span class="tag">{t}</span>

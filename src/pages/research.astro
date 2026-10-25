@@ -39,7 +39,7 @@ const honors = await getOrdered('honors');
           <span class="kicker">{r.data.org} · {r.data.dates}</span>
           <h3>{r.data.title}</h3>
           <p>{r.data.summary}</p>
-          {r.data.details && (
+          {r.data.details.length > 0 && (
             <ul>
               {r.data.details.map((d) => (
                 <li>{d}</li>
