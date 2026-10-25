@@ -73,6 +73,7 @@ const initials = site.name.split(' ').map((w) => w[0]).join('');
           <h3>{r.data.title}</h3>
           <p>{r.data.summary}</p>
           {r.data.award && <span class="award">{r.data.award}</span>}
+          <Links links={r.data.links} />
         </div>
       ))
     }

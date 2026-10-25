@@ -37,6 +37,8 @@
     - REU fellowship in Bodaway Gap, Arizona, studying ethnography in the algorithm design process.
   award: Outstanding Research Poster Award
   featured: true
+  links:
+    poster: /posters/qualitative-coding-contextual-engineering.webp
 
 - id: fau-federated
   title: Federated learning for smart grids
