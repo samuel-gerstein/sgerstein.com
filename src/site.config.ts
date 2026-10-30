@@ -9,7 +9,7 @@ export const site = {
   url: 'https://sgerstein.com',
 
   // Email is split so scrapers can't read it straight from the HTML.
-  email: { user: 'samuelgerstein', domain: 'protonmail.com' },
+  email: { user: 'sam', domain: 'sgerstein.com' },
 
   // TODO: your Substack address, e.g. 'https://samuelgerstein.substack.com'.
   // Leave empty ('') and the Writing page shows a "coming soon" note instead.
