@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<title>Eight-Month Reading Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+/* Layout: one reading column. A week strip and "up next" sit on top, then the phases as a long checklist, then the shelf. */
+:root {
+  --bg: #edf1f0; --surface: #f8faf9; --ink: #15262b; --muted: #55686d; --rule: #c9d4d3;
+  --accent: #0b6b6f; --accent-soft: #d3e6e5; --flag: #8a5706; --flag-soft: #f3e6c9;
+  --display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101a1d; --surface: #172326; --ink: #e4eceb; --muted: #9bb0b2; --rule: #2b3b3f;
+    --accent: #5cc4c4; --accent-soft: #1e3a3c; --flag: #e5b65a; --flag-soft: #3a2f17; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101a1d; --surface: #172326; --ink: #e4eceb; --muted: #9bb0b2; --rule: #2b3b3f;
+  --accent: #5cc4c4; --accent-soft: #1e3a3c; --flag: #e5b65a; --flag-soft: #3a2f17; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.5; }
+.page {
+  max-width: 780px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+  display: flex; flex-direction: column; gap: 44px;
+}
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.5rem; font-weight: 700; }
+h3 { font-size: 1rem; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--mono); font-size: 0.74rem; font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+.lede { max-width: 62ch; color: var(--ink); }
+header { display: flex; flex-direction: column; gap: 14px; }
+.stats { color: var(--muted); }
+
+.status { display: flex; flex-direction: column; gap: 14px; }
+.next { background: var(--accent-soft); padding: 20px; border-radius: 4px; display: flex; flex-direction: column; gap: 8px; }
+.next .eyebrow { font-family: var(--mono); font-size: 0.74rem; color: var(--accent); }
+.next h2 { font-size: 1.35rem; }
+.next .by { color: var(--muted); }
+.next button {
+  align-self: flex-start; margin-top: 6px; padding: 8px 14px; border: 0; border-radius: 3px;
+  background: var(--accent); color: var(--bg); font-family: var(--display); font-weight: 600; font-size: 0.92rem; cursor: pointer;
+}
+.strip { display: grid; grid-template-columns: repeat(35, 1fr); gap: 2px; }
+.strip i { display: block; height: 14px; background: var(--rule); }
+.strip i.done { background: var(--accent); }
+.strip i.now { background: transparent; box-shadow: inset 0 0 0 2px var(--accent); }
+.strip i.gap { background: transparent; box-shadow: inset 0 0 0 1px var(--rule); }
+.strip i.gap.done { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.legend { color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
+
+.rules { display: flex; flex-direction: column; gap: 14px; }
+.rules ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; max-width: 62ch; }
+
+.phase { display: flex; flex-direction: column; gap: 10px; }
+.phase-head { display: flex; flex-direction: column; gap: 6px; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
+.phase-head .sub { color: var(--muted); }
+.items { list-style: none; margin: 0; padding: 0; }
+.item { display: grid; grid-template-columns: 24px minmax(0, 1fr) 92px; gap: 4px 12px; padding-block: 12px; border-bottom: 1px solid var(--rule); }
+.item input { width: 18px; height: 18px; margin: 4px 0 0; accent-color: var(--accent); cursor: pointer; }
+.item .title { font-family: var(--display); font-weight: 600; font-size: 1.04rem; line-height: 1.25; display: block; cursor: pointer; }
+.item .by { color: var(--muted); font-size: 0.95rem; }
+.item .why { font-size: 0.98rem; margin-top: 2px; max-width: 60ch; }
+.item .meta { text-align: right; color: var(--muted); display: flex; flex-direction: column; gap: 2px; }
+.item.is-done .title, .item.is-done .by, .item.is-done .why { color: var(--muted); }
+.item.is-done .title { text-decoration: line-through; text-decoration-thickness: 1px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; align-items: center; }
+.tag { font-family: var(--mono); font-size: 0.7rem; padding: 1px 6px; border-radius: 2px; background: var(--accent-soft); color: var(--accent); }
+.tag.flag { background: var(--flag-soft); color: var(--flag); }
+.tags a { font-family: var(--mono); font-size: 0.72rem; }
+.note { background: var(--surface); padding: 12px 14px; font-size: 0.98rem; border-radius: 4px; }
+.note strong { font-family: var(--display); font-weight: 600; }
+
+.shelf { display: flex; flex-direction: column; gap: 16px; }
+.shelf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; }
+.shelf-grid > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.shelf-grid p { font-size: 0.96rem; }
+.shelf-grid .pick { color: var(--accent); font-size: 0.96rem; }
+.basis { display: flex; flex-direction: column; gap: 10px; font-size: 0.96rem; color: var(--muted); }
+.basis ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
+.basis h2 { color: var(--ink); font-size: 1.1rem; }
+@media (max-width: 560px) {
+  body { font-size: 17px; }
+  .item { grid-template-columns: 24px minmax(0, 1fr); }
+  .item .meta { grid-column: 2; flex-direction: row; gap: 12px; text-align: left; }
+  .shelf-grid { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Eight-Month Reading Plan</h1>
+    <p class="stats mono">35 weeks · 12 books · 21 papers and articles · about 80 hours · Nov 2, 2026 to Jul 4, 2027</p>
+    <p class="lede">Your library keeps coming back to one question: how do you hold big systems accountable to the people inside them? The books you added today and your Zotero papers trace that line from cybernetics, through critical systems thinking, to AI auditing. This plan follows it, after two months of mostly fiction to get the habit back.</p>
+  </header>
+
+  <section class="status" aria-label="Progress">
+    <div class="next" id="next"></div>
+    <div class="strip" id="strip" role="img" aria-label="Thirty-five weeks of the plan, filled in as you finish them"></div>
+    <div class="legend mono"><span id="count">0 of 33 done</span><span>Each square is a week. Outlined squares are catch-up weeks.</span></div>
+    <div class="legend mono"><span id="save">Your ticks save in this browser.</span></div>
+  </section>
+
+  <section class="rules">
+    <h2>How to use it</h2>
+    <ul>
+      <li>Read 30 minutes a day, five days a week. Keep it to 20 or 25 minutes for the first month.</li>
+      <li>Commit to phase 1 only. Decide about the rest at the end of week 8.</li>
+      <li>If a book isn't working after 50 pages, drop it and take something of similar length from the shelf.</li>
+      <li>Use the two catch-up weeks if you fall behind. If you don't need them, read anything you like.</li>
+    </ul>
+    <h2>Before you start</h2>
+    <ul>
+      <li>Three books are EPUB only, so convert them in Calibre before sending them to your Kindle. They're tagged below.</li>
+      <li>Thirteen papers have no PDF in Zotero yet. They're tagged below, and eleven have a DOI link.</li>
+      <li>Ulrich 1981 and Beer 1983 have no DOI, and no copy turned up online. Try interlibrary loan early. If they haven't arrived by week 16, read Espinosa on its own.</li>
+    </ul>
+  </section>
+
+  <div id="phases" style="display:flex;flex-direction:column;gap:44px"></div>
+
+  <section class="shelf">
+    <h2>The shelf</h2>
+    <p class="lede">More from your Calibre library. Use it for swaps, catch-up weeks, or wherever you want to go after the plan ends.</p>
+    <div class="shelf-grid">
+      <div>
+        <h3>Short swaps</h3>
+        <p class="pick">Start with Are Prisons Obsolete? (2.5 h)</p>
+        <p>Hyperpolitics · Xenofeminism · The Xenofeminist Manifesto · Poststructuralism</p>
+      </div>
+      <div>
+        <h3>Fiction</h3>
+        <p class="pick">A Tale of Two Cities (11.5 h)</p>
+      </div>
+      <div>
+        <h3>AI and the tech industry</h3>
+        <p class="pick">Start with Enshittification (7 h)</p>
+        <p>Empire of AI · More Everything Forever · The Atlas of AI · Why We Fear AI · The Nerd Reich · Technofeudalism · The Age of Surveillance Capitalism · Beyond Digital Capitalism</p>
+      </div>
+      <div>
+        <h3>Technology, race and everyday life</h3>
+        <p class="pick">Start with Unmasking AI (7 h)</p>
+        <p>Race After Technology · Design Justice · Dialogues in Data Power · Artificial Intimacy · Algospeak · Prophecy · The Illusion Engine · The Palestine Laboratory</p>
+      </div>
+      <div>
+        <h3>Planning and the history of systems</h3>
+        <p class="pick">Start with The People's Republic of Walmart (5 h)</p>
+        <p>Towards a New Socialism · Small Is Beautiful · The Systems Approach and Its Enemies · How Reason Almost Lost Its Mind · Rational Action · Of Bicycles, Bakelites, and Bulbs</p>
+      </div>
+      <div>
+        <h3>Political economy and theory</h3>
+        <p class="pick">Start with Less Is More (6.5 h)</p>
+        <p>Debt · Bullshit Jobs · The Shock Doctrine · Doppelganger · Ghosts of My Life · Grand Hotel Abyss · The Second Sex · Orientalism · Postcolonial Theory and the Specter of Capital · Metaphors We Live By · Introduction to the Work of Melanie Klein · The ABC of Communism</p>
+      </div>
+      <div>
+        <h3>US history and movements</h3>
+        <p class="pick">Start with Revolutionary Suicide (11 h)</p>
+        <p>A People's History of the United States · American Pogroms · Inventing Reality</p>
+      </div>
+      <div>
+        <h3>China and labor</h3>
+        <p class="pick">Start with Dying for an iPhone (5.5 h)</p>
+        <p>The Communist Road to Capitalism · China: From Permanent Revolution to Counter-Revolution</p>
+      </div>
+      <div>
+        <h3>Reference, for dipping into</h3>
+        <p>Critical Systems Thinking and the Management of Complexity · Systemic Intervention · Community Operational Research · Realising Systems Thinking · Rational Analysis for a Problematic World Revisited · Machine Dreams</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="basis">
+    <h2>What this is based on</h2>
+    <ul>
+      <li>The 73 books in your Calibre library and the 26 items in Reading Plan Papers, as of Oct 30, 2026. Nothing in either library was changed.</li>
+      <li>Times come from word counts of your actual files, at 200 words a minute, with notes and bibliographies removed where the file allowed. Papers are listed by page count, at about 3 minutes a page.</li>
+      <li>Calibre shows four books opened, none past the front matter. It can't see Kindle progress, so the plan treats everything as unread. Tick off anything you've already finished.</li>
+      <li>The 26 Zotero items are 21 readings. Ulrich 1981, Beer 1983, the Klein and Taylor interview, and the Maffei column each appear twice, and the 2010 Critical Systems Heuristics chapter is the earlier edition of the 2020 one.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+const PHASES = [
+  { n: 1, title: "Get the habit back", weeks: "Weeks 1–8", dates: "Nov 2 – Dec 27", sub: "Mostly fiction, plus two short nonfiction books.",
+    after: "<strong>Check in at the end of week 8.</strong> If you finished at least three of these, move on. If not, stay at this pace for another month with Are Prisons Obsolete? and Hyperpolitics, which each take about 2.5 hours.",
+    items: [
+      { id: "klein-taylor", k: "Interview", t: "Naomi Klein and Astra Taylor Say the End of the World Is Now on the Table", by: "David Marchese, The New York Times Magazine, 2026", wk: "Week 1", end: 1, time: "1 sitting", why: "Start here, this weekend if you like. It gets your first tick on the board.", url: "https://www.nytimes.com/2026/09/12/magazine/naomi-klein-astra-taylor-interview.html" },
+      { id: "word-for-world", k: "Novel", t: "The Word for World Is Forest", by: "Ursula K. Le Guin", wk: "Weeks 1–2", end: 2, time: "3.5 h", why: "A short, fast novel about colonial extraction. Starting with fiction keeps reading from turning into homework, and it gets you a finished book by week 2." },
+      { id: "capitalist-realism", k: "Book", t: "Capitalist Realism", by: "Mark Fisher", wk: "Week 3", end: 3, time: "2 h", why: "Your shortest full-length nonfiction book. It's theory-heavy, so it sits between two novels." },
+      { id: "scythe", k: "Novel", t: "Scythe", by: "Neal Shusterman", wk: "Weeks 4–7", end: 7, time: "8.5 h", why: "The biggest page-turner in your library, about a society that has conquered death. It's long but fast, which builds momentum before the systems books start." },
+      { id: "designing-freedom", k: "Book", t: "Designing Freedom", by: "Stafford Beer", wk: "Week 8", end: 8, time: "2.5 h", why: "Short radio lectures on cybernetics and liberty. This opens the systems thread and sets up phase 2." },
+    ] },
+  { n: 2, title: "Systems, then Chile", weeks: "Weeks 9–16", dates: "Dec 28 – Feb 21", sub: "Learn the basics, then watch people try to run an economy with them.",
+    items: [
+      { id: "thinking-in-systems", k: "Book", t: "Thinking in Systems: A Primer", by: "Donella H. Meadows", wk: "Weeks 9–10", end: 10, time: "5.5 h", why: "The plain-language foundation for phases 2 and 3.", epub: true },
+      { id: "hickel", k: "Paper", t: "Degrowth: A Theory of Radical Abundance", by: "Jason Hickel, 2019", wk: "Week 11", end: 11, time: "15 pp", why: "Meadows was lead author of The Limits to Growth. This is a short case for acting on that kind of warning.", pdf: true },
+      { id: "hour-of-the-star", k: "Novel", t: "The Hour of the Star", by: "Clarice Lispector", wk: "Week 11", end: 11, time: "2 h", why: "A very short, strange novel between two nonfiction books. It's demanding, but it only takes two hours." },
+      { id: "cybernetic-revolutionaries", k: "Book", t: "Cybernetic Revolutionaries", by: "Eden Medina", wk: "Weeks 12–15", end: 15, time: "9.5 h", why: "The history of Project Cybersyn in Allende's Chile, where Beer's ideas met real politics. It's the longest book in the plan, and it reads as a story.", epub: true },
+      { id: "ulrich-1981", k: "Paper", t: "A Critique of Pure Cybernetic Reason: The Chilean Experience with Cybernetics", by: "Werner Ulrich, 1981", wk: "Week 16", end: 16, time: "27 pp", why: "Ulrich's critique of the project you just read about.", nopdf: true },
+      { id: "beer-1983", k: "Paper", t: "A Reply to Ulrich's “Critique of Pure Cybernetic Reason”", by: "Stafford Beer, 1983", wk: "Week 16", end: 16, time: "5 pp", why: "Beer answers him directly.", nopdf: true },
+      { id: "espinosa", k: "Paper", t: "Revisiting the Viable System Model as an Emancipatory Systems Approach", by: "Angela Espinosa, 2024", wk: "Week 16", end: 16, time: "18 pp", why: "Takes up the same question four decades later: can Beer's model be emancipatory?", doi: "10.1002/sres.3090" },
+    ] },
+  { gap: 17, dates: "Feb 22 – Feb 28" },
+  { n: 3, title: "Critical systems thinking", weeks: "Weeks 18–24", dates: "Mar 1 – Apr 18", sub: "The densest phase. Read the papers in order, because they build on each other, with one Ellison story a week as a break.",
+    items: [
+      { id: "ackoff-a", k: "Paper", t: "The Future of Operational Research Is Past", by: "Russell L. Ackoff, 1979", wk: "Week 18", end: 18, time: "12 pp", why: "A founder of the field argues it has lost its way.", doi: "10.1057/jors.1979.22" },
+      { id: "ackoff-b", k: "Paper", t: "Resurrecting the Future of Operational Research", by: "Russell L. Ackoff, 1979", wk: "Week 18", end: 18, time: "11 pp", why: "His follow-up on what to do about it.", doi: "10.1057/jors.1979.41" },
+      { id: "rosenhead", k: "Paper", t: "A Materialist Analysis of Operational Research", by: "Jonathan Rosenhead & Colin Thunhurst, 1982", wk: "Week 18", end: 18, time: "12 pp", why: "The left version of the critique: whose interests does the field serve?", doi: "10.1057/jors.1982.23" },
+      { id: "jackson-1985", k: "Paper", t: "Social Systems Theory and Practice: The Need for a Critical Approach", by: "Michael C. Jackson, 1985", wk: "Week 19", end: 19, time: "17 pp", why: "An early case for the critical turn, from the author of your week 21 book.", doi: "10.1080/03081078508934877" },
+      { id: "csh", k: "Paper", t: "Critical Systems Heuristics: The Idea and Practice of Boundary Critique", by: "Werner Ulrich & Martin Reynolds, 2020", wk: "Weeks 19–20", end: 20, time: "52 pp", why: "The most important reading in the plan. Boundary critique asks who decides what counts as part of the system, and who gets left out. Take notes, because phases 4 and 5 use it.", pdf: true },
+      { id: "ulrich-2012a", k: "Paper", t: "Operational Research and Critical Systems Thinking: An Integrated Perspective, Part 1", by: "Werner Ulrich, 2012", wk: "Week 20", end: 20, time: "20 pp", why: "Ulrich ties the two traditions together.", doi: "10.1057/jors.2011.141" },
+      { id: "ulrich-2012b", k: "Paper", t: "Operational Research and Critical Systems Thinking: An Integrated Perspective, Part 2", by: "Werner Ulrich, 2012", wk: "Week 21", end: 21, time: "16 pp", why: "Finishes the argument.", doi: "10.1057/jors.2011.145" },
+      { id: "jackson-guide", k: "Book", t: "Critical Systems Thinking: A Practitioner's Guide", by: "Michael C. Jackson", wk: "Weeks 21–24", end: 24, time: "7 h", why: "The overview of the whole field. Read this before opening any of the big systems books on your shelf.", epub: true },
+      { id: "no-mouth", k: "Stories", t: "I Have No Mouth and I Must Scream", by: "Harlan Ellison", wk: "Weeks 18–24", end: 24, time: "4 h", why: "Seven short stories, one for each week of this phase. They're dark but quick, and they give you a break from the papers." },
+    ] },
+  { n: 4, title: "Try it on a live argument", weeks: "Weeks 25–27", dates: "Apr 19 – May 9", sub: "A change of subject, and a chance to use boundary critique on a real dispute.",
+    items: [
+      { id: "end-of-policing", k: "Book", t: "The End of Policing", by: "Alex S. Vitale", wk: "Weeks 25–26", end: 26, time: "6 h", why: "Concrete and readable after the theory. As you go, ask where Vitale draws the boundary of the problem." },
+      { id: "monaghan", k: "Paper", t: "Root Causes and Police Abolition", by: "Jake Monaghan, 2026", wk: "Week 27", end: 27, time: "17 pp", why: "Cites Vitale directly and argues that the root-cause case for abolition fails. Read the two against each other.", pdf: true },
+      { id: "maffei", k: "Column", t: "On Moral Monsters and the Cornell 7", by: "Lucio T. Maffei, The Daily Free Press, 2026", wk: "Week 27", end: 27, time: "1 sitting", why: "A student column on sexual violence, redemption, and how the justice system treats class.", url: "https://dailyfreepress.com/09/30/23/221060/on-moral-monsters-and-the-cornell-7-the-dissenting-opinion/" },
+    ] },
+  { gap: 28, dates: "May 10 – May 16" },
+  { n: 5, title: "AI accountability", weeks: "Weeks 29–35", dates: "May 17 – Jul 4", sub: "Start with the readable book, then move into the research.",
+    after: "<strong>Optional:</strong> A Tale of Two Cities is the last novel on your shelf. It takes about 11.5 hours, so reading it here would push the end of the plan back by about a month.",
+    items: [
+      { id: "ai-snake-oil", k: "Book", t: "AI Snake Oil", by: "Arvind Narayanan & Sayash Kapoor", wk: "Weeks 29–31", end: 31, time: "7 h", why: "The readable base for this phase: what AI can do, what it can't, and how to tell." },
+      { id: "normal-tech", k: "Paper", t: "AI as Normal Technology", by: "Arvind Narayanan & Sayash Kapoor, 2025", wk: "Week 31", end: 31, time: "52 pp", why: "The same authors' later argument against treating AI as a potential superintelligence.", pdf: true },
+      { id: "selbst", k: "Paper", t: "Fairness and Abstraction in Sociotechnical Systems", by: "Andrew D. Selbst et al., 2019", wk: "Week 32", end: 32, time: "10 pp", why: "Its “framing trap” is a boundary problem, so phase 3 pays off here.", doi: "10.1145/3287560.3287598" },
+      { id: "green", k: "Paper", t: "Algorithmic Realism", by: "Ben Green & Salomé Viljoen, 2020", wk: "Week 32", end: 32, time: "13 pp", why: "Argues that technical work has to take its social context into account.", doi: "10.1145/3351095.3372840" },
+      { id: "kasy", k: "Paper", t: "Fairness, Equality, and Power in Algorithmic Decision-Making", by: "Maximilian Kasy & Rediet Abebe, 2021", wk: "Week 32", end: 32, time: "11 pp", why: "Moves the question from fairness to who holds power over the algorithm.", doi: "10.1145/3442188.3445919" },
+      { id: "metaxa", k: "Paper", t: "Auditing Algorithms: Understanding Algorithmic Systems from the Outside In", by: "Danaë Metaxa et al., 2021", wk: "Week 33", end: 33, time: "76 pp", why: "The field guide to audit methods.", pdf: true },
+      { id: "auditing-ai", k: "Book", t: "Auditing AI", by: "The Marquand House Collective", wk: "Week 34", end: 34, time: "2.5 h", why: "A short book with names you'll know by now: Metaxa, Karahalios and Vaccaro all contributed." },
+      { id: "vaccaro", k: "Paper", t: "Contestability for Content Moderation", by: "Kristen Vaccaro et al., 2021", wk: "Week 35", end: 35, time: "28 pp", why: "What it takes for people to be able to challenge an automated decision.", doi: "10.1145/3476059" },
+      { id: "karan", k: "Paper", t: "Algorithmic Collective Action with Two Collectives", by: "Aditya Karan et al., 2025", wk: "Week 35", end: 35, time: "16 pp", why: "Ends the plan on what groups of people can do to push back.", pdf: true },
+    ] },
+];
+
+const ITEMS = PHASES.flatMap(p => p.items || []);
+const GAPS = PHASES.filter(p => p.gap).map(p => p.gap);
+const KEY = "reading-plan-done";
+let done = new Set();
+let col = null;
+
+const readLocal = () => { try { return new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch { return new Set(); } };
+const writeLocal = () => { try { localStorage.setItem(KEY, JSON.stringify([...done])); } catch {} };
+const setSave = text => { document.getElementById("save").textContent = text; };
+
+function itemRow(it) {
+  const li = document.createElement("li");
+  li.className = "item";
+  li.id = "item-" + it.id;
+  const tags = [`<span class="tag">${it.k}</span>`];
+  if (it.pdf) tags.push(`<span class="tag">PDF in Zotero</span>`);
+  if (it.epub) tags.push(`<span class="tag flag">EPUB only</span>`);
+  if (it.nopdf) tags.push(`<span class="tag flag">No PDF, no DOI</span>`);
+  if (it.doi) tags.push(`<span class="tag flag">No PDF yet</span><a href="https://doi.org/${it.doi}" target="_blank" rel="noopener">doi.org/${it.doi}</a>`);
+  if (it.url) tags.push(`<a href="${it.url}" target="_blank" rel="noopener">Open article</a>`);
+  li.innerHTML = `
+    <input type="checkbox" id="check-${it.id}" aria-label="Mark ${it.t.replace(/"/g, "&quot;")} done">
+    <div>
+      <label class="title" for="check-${it.id}">${it.t}</label>
+      <span class="by">${it.by}</span>
+      <p class="why">${it.why}</p>
+      <div class="tags">${tags.join("")}</div>
+    </div>
+    <div class="meta mono"><span>${it.wk}</span><span>${it.time}</span></div>`;
+  li.querySelector("input").addEventListener("change", e => toggle(it.id, e.target.checked));
+  return li;
+}
+
+function build() {
+  const root = document.getElementById("phases");
+  for (const p of PHASES) {
+    if (p.gap) {
+      const n = document.createElement("div");
+      n.className = "note";
+      n.innerHTML = `<strong>Week ${p.gap}: catch-up.</strong> <span class="mono">${p.dates}</span><br>Finish what's open, or read anything you like from the shelf.`;
+      root.append(n);
+      continue;
+    }
+    const s = document.createElement("section");
+    s.className = "phase";
+    s.innerHTML = `<div class="phase-head">
+        <span class="mono">Phase ${p.n} · ${p.weeks} · ${p.dates} · <span id="tally-${p.n}"></span></span>
+        <h2>${p.title}</h2>
+        <p class="sub">${p.sub}</p>
+      </div>`;
+    const ul = document.createElement("ul");
+    ul.className = "items";
+    p.items.forEach(it => ul.append(itemRow(it)));
+    s.append(ul);
+    if (p.after) {
+      const n = document.createElement("div");
+      n.className = "note";
+      n.innerHTML = p.after;
+      s.append(n);
+    }
+    root.append(s);
+  }
+  const strip = document.getElementById("strip");
+  for (let w = 1; w <= 35; w++) {
+    const c = document.createElement("i");
+    c.dataset.week = w;
+    strip.append(c);
+  }
+}
+
+function paint() {
+  for (const it of ITEMS) {
+    const on = done.has(it.id);
+    document.getElementById("check-" + it.id).checked = on;
+    document.getElementById("item-" + it.id).classList.toggle("is-done", on);
+  }
+  for (const p of PHASES) {
+    if (p.gap) continue;
+    const n = p.items.filter(i => done.has(i.id)).length;
+    document.getElementById("tally-" + p.n).textContent = `${n} of ${p.items.length} done`;
+  }
+  const count = ITEMS.filter(i => done.has(i.id)).length;
+  document.getElementById("count").textContent = `${count} of ${ITEMS.length} done`;
+
+  const next = ITEMS.find(i => !done.has(i.id));
+  const box = document.getElementById("next");
+  if (!next) {
+    box.innerHTML = `<span class="eyebrow">Finished</span><h2>That's the whole plan.</h2><p>Pick your next arc from the shelf.</p>`;
+  } else {
+    box.innerHTML = `<span class="eyebrow">Up next · ${next.wk} · ${next.time}</span><h2></h2><p class="by"></p><p class="why"></p><button type="button" id="mark-next">Mark done</button>`;
+    box.querySelector("h2").textContent = next.t;
+    box.querySelector(".by").textContent = next.by;
+    box.querySelector(".why").textContent = next.why;
+    box.querySelector("button").addEventListener("click", () => toggle(next.id, true));
+  }
+  const nowWeek = next ? next.end : 36;
+  document.querySelectorAll("#strip i").forEach(c => {
+    const w = +c.dataset.week;
+    const finished = ITEMS.filter(i => i.end <= w).every(i => done.has(i.id));
+    c.className = GAPS.includes(w) ? "gap" : "";
+    if (finished) c.classList.add("done");
+    else if (w === nowWeek) c.classList.add("now");
+  });
+}
+
+function toggle(id, on) {
+  if (on) done.add(id); else done.delete(id);
+  writeLocal();
+  paint();
+  if (!col) return;
+  const ref = col.doc(id);
+  (on ? ref.set({ at: new Date().toISOString() }) : ref.delete())
+    .catch(() => setSave("That tick didn't save to the plan. It's kept in this browser for now."));
+}
+
+done = readLocal();
+build();
+paint();
+
+(async () => {
+  const db = window.claude?.use ? await window.claude.use("db") : null;
+  if (!db) return;
+  setSave("Loading your saved ticks…");
+  const timer = setTimeout(() => setSave("Saved ticks didn't load. New ticks stay in this browser for now."), 10000);
+  const c = db.collection("done");
+  c.onSnapshot(snap => {
+    clearTimeout(timer);
+    col = c;
+    if (snap.metadata.fromCache) return;
+    done = new Set(snap.docs.map(d => d.id));
+    writeLocal();
+    paint();
+    setSave("Your ticks save to this page, on any device.");
+  }, () => {
+    clearTimeout(timer);
+    col = null;
+    setSave("Saved ticks aren't available. New ticks stay in this browser for now.");
+  });
+})();
+</script>
+</body>
+</html>
