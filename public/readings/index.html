@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://api.github.com; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://textdb.dev; base-uri 'none'; form-action 'none'">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -74,13 +74,6 @@ header { display: flex; flex-direction: column; gap: 14px; }
 .strip i.gap.done { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
 .legend { color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
 
-.sync { display: flex; flex-direction: column; gap: 8px; }
-.text-button { align-self: flex-start; background: none; border: 0; padding: 0; color: var(--accent); font: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
-.sync form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.sync label { flex-basis: 100%; color: var(--muted); }
-.sync input { flex: 1 1 220px; min-width: 0; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); color: var(--ink); font-family: var(--mono); font-size: 0.85rem; }
-.sync form button { padding: 8px 14px; border: 0; border-radius: 3px; background: var(--accent); color: var(--bg); font-family: var(--display); font-weight: 600; font-size: 0.92rem; cursor: pointer; }
-
 .rules { display: flex; flex-direction: column; gap: 14px; }
 .rules ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; max-width: 62ch; }
 
@@ -132,15 +125,6 @@ header { display: flex; flex-direction: column; gap: 14px; }
     <div class="strip" id="strip" role="img" aria-label="Thirty-five weeks of the plan, filled in as you finish them"></div>
     <div class="legend mono"><span id="count">0 of 33 done</span><span>Each square is a week. Outlined squares are catch-up weeks.</span></div>
     <div class="legend mono"><span id="save" role="status">Your ticks save in this browser.</span></div>
-    <div class="sync mono">
-      <button type="button" class="text-button" id="sync-open">Sync across devices</button>
-      <button type="button" class="text-button" id="sync-off" hidden>Disconnect this device</button>
-      <form id="sync-form" hidden>
-        <label for="sync-key">Paste your sync key. It stays in this browser.</label>
-        <input id="sync-key" type="password" autocomplete="off" spellcheck="false">
-        <button type="submit">Connect</button>
-      </form>
-    </div>
   </section>
 
   <section class="rules">
@@ -282,11 +266,9 @@ const ITEMS = PHASES.flatMap(p => p.items || []);
 const GAPS = PHASES.filter(p => p.gap).map(p => p.gap);
 const MARKS_KEY = "reading-plan-marks";
 const OLD_KEY = "reading-plan-done";
-const SYNC_KEY = "reading-plan-sync-key";
-const TICKS_URL = "https://api.github.com/repos/samuel-gerstein/reading-progress/contents/ticks.json";
+const TICKS_URL = "https://textdb.dev/api/data/8abf4047-6134-4061-8fcb-0190d2861e71";
 let marks = {};
 let done = new Set();
-let syncKey = "";
 let pushTimer = null;
 let syncing = false;
 let syncAgain = false;
@@ -299,7 +281,7 @@ const store = {
 const setSave = text => { document.getElementById("save").textContent = text; };
 const saveMarks = () => store.set(MARKS_KEY, JSON.stringify(marks));
 const applyMarks = () => { done = new Set(Object.keys(marks).filter(id => marks[id].on)); };
-const sorted = m => Object.fromEntries(Object.keys(m).sort().map(k => [k, m[k]]));
+const canon = m => JSON.stringify(Object.keys(m).sort().map(k => [k, m[k].on, m[k].at]));
 
 function loadMarks() {
   try {
@@ -319,61 +301,43 @@ function mergeMarks(a, b) {
   return out;
 }
 
-async function github(method, body) {
-  const headers = { Authorization: `Bearer ${syncKey}`, Accept: "application/vnd.github+json" };
-  if (body) headers["Content-Type"] = "application/json";
-  const res = await fetch(TICKS_URL, { method, headers, cache: "no-store", body: body ? JSON.stringify(body) : undefined });
-  if (!res.ok) throw Object.assign(new Error("GitHub request failed"), { status: res.status });
-  return res.json();
+async function readTicks() {
+  const res = await fetch(TICKS_URL, { cache: "no-store" });
+  if (!res.ok) throw new Error("Could not read ticks");
+  const text = (await res.text()).trim();
+  const saved = !text || text === '""' ? {} : JSON.parse(text).marks || {};
+  // Anyone can edit this store, so keep only well-formed ticks for items in the plan.
+  return Object.fromEntries(Object.entries(saved).filter(([id, m]) =>
+    ITEMS.some(i => i.id === id) && m && typeof m.on === "boolean" && typeof m.at === "string"));
 }
 
-async function readTicks() {
-  try {
-    const file = await github("GET");
-    return { sha: file.sha, marks: JSON.parse(atob(file.content.replace(/\n/g, ""))).marks || {} };
-  } catch (e) {
-    if (e.status === 404) return { sha: undefined, marks: {} };
-    throw e;
-  }
+async function writeTicks() {
+  const res = await fetch(TICKS_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify({ marks }),
+  });
+  if (!res.ok) throw new Error("Could not save ticks");
 }
 
 async function sync() {
-  if (!syncKey) return;
   if (syncing) { syncAgain = true; return; }
   syncing = true;
   setSave("Syncing your ticks…");
   try {
-    for (let attempt = 1; ; attempt++) {
-      const file = await readTicks();
-      marks = mergeMarks(marks, file.marks);
-      saveMarks();
-      applyMarks();
-      paint();
-      if (file.sha && JSON.stringify(sorted(marks)) === JSON.stringify(sorted(file.marks))) break;
-      try {
-        const content = btoa(JSON.stringify({ marks: sorted(marks) }, null, 2) + "\n");
-        await github("PUT", { message: "Update reading ticks", content, sha: file.sha });
-        break;
-      } catch (e) {
-        // Another device saved first, so read its ticks and try again.
-        if ((e.status !== 409 && e.status !== 422) || attempt === 3) throw e;
-      }
-    }
-    setSave("Your ticks are synced across your devices.");
-  } catch (e) {
-    setSave([401, 403, 404].includes(e.status)
-      ? "Sync couldn't open your ticks. Check your sync key and connect again. New ticks stay in this browser."
-      : "Sync didn't finish. Your ticks are safe in this browser and will sync next time.");
+    const remote = await readTicks();
+    marks = mergeMarks(marks, remote);
+    saveMarks();
+    applyMarks();
+    paint();
+    if (canon(marks) !== canon(remote)) await writeTicks();
+    setSave("Your ticks sync across your devices.");
+  } catch {
+    setSave("Sync isn't available right now. Your ticks are safe in this browser and will sync next time.");
   } finally {
     syncing = false;
     if (syncAgain) { syncAgain = false; sync(); }
   }
-}
-
-function renderSync() {
-  document.getElementById("sync-open").hidden = !!syncKey;
-  document.getElementById("sync-off").hidden = !syncKey;
-  document.getElementById("sync-form").hidden = true;
 }
 
 function itemRow(it) {
@@ -476,31 +440,10 @@ function toggle(id, on) {
   saveMarks();
   applyMarks();
   paint();
-  if (!syncKey) return;
   clearTimeout(pushTimer);
   pushTimer = setTimeout(() => { pushTimer = null; sync(); }, 1200);
 }
 
-document.getElementById("sync-open").addEventListener("click", () => {
-  document.getElementById("sync-form").hidden = false;
-  document.getElementById("sync-key").focus();
-});
-document.getElementById("sync-off").addEventListener("click", () => {
-  syncKey = "";
-  store.del(SYNC_KEY);
-  renderSync();
-  setSave("Your ticks save in this browser.");
-});
-document.getElementById("sync-form").addEventListener("submit", e => {
-  e.preventDefault();
-  const input = document.getElementById("sync-key");
-  syncKey = input.value.trim();
-  input.value = "";
-  if (!syncKey) return;
-  store.set(SYNC_KEY, syncKey);
-  renderSync();
-  sync();
-});
 document.addEventListener("visibilitychange", () => {
   if (document.hidden && !pushTimer) return;
   clearTimeout(pushTimer);
@@ -513,8 +456,6 @@ marks = loadMarks();
 applyMarks();
 build();
 paint();
-syncKey = store.get(SYNC_KEY) || "";
-renderSync();
 sync();
 </script>
 </body>
