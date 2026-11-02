@@ -116,14 +116,14 @@ header { display: flex; flex-direction: column; gap: 14px; }
 <div class="page">
   <header>
     <h1>Eight-Month Reading Plan</h1>
-    <p class="stats mono">35 weeks · 12 books · 21 papers and articles · about 80 hours · Nov 2, 2026 to Jul 4, 2027</p>
+    <p class="stats mono">35 weeks · 12 books · 22 papers and articles · about 80 hours · Nov 2, 2026 to Jul 4, 2027</p>
     <p class="lede">Your library keeps coming back to one question: how do you hold big systems accountable to the people inside them? The books you added today and your Zotero papers trace that line from cybernetics, through critical systems thinking, to AI auditing. This plan follows it, after two months of mostly fiction to get the habit back.</p>
   </header>
 
   <section class="status" aria-label="Progress">
     <div class="next" id="next"></div>
     <div class="strip" id="strip" role="img" aria-label="Thirty-five weeks of the plan, filled in as you finish them"></div>
-    <div class="legend mono"><span id="count">0 of 33 done</span><span>Each square is a week. Outlined squares are catch-up weeks.</span></div>
+    <div class="legend mono"><span id="count">0 of 34 done</span><span>Each square is a week. Outlined squares are catch-up weeks.</span></div>
     <div class="legend mono"><span id="save" role="status">Your ticks save in this browser.</span></div>
   </section>
 
@@ -212,6 +212,7 @@ const PHASES = [
   { n: 1, title: "Get the habit back", weeks: "Weeks 1–8", dates: "Nov 2 – Dec 27", sub: "Mostly fiction, plus two short nonfiction books.",
     after: "<strong>Check in at the end of week 8.</strong> If you finished at least three of these, move on. If not, stay at this pace for another month with Are Prisons Obsolete? and Hyperpolitics, which each take about 2.5 hours.",
     items: [
+      { id: "wolk", k: "Essay", t: "The Case Against Me", by: "Ivy Wolk, New York Magazine, 2026", wk: "Week 1", end: 1, time: "1 sitting", why: "Wolk looks back on years of being canceled online and what she has taken from it. A quick, personal read to open the plan.", url: "https://www.vulture.com/article/ivy-wolk-on-cancellation-and-what-ive-learned.html" },
       { id: "klein-taylor", k: "Interview", t: "Naomi Klein and Astra Taylor Say the End of the World Is Now on the Table", by: "David Marchese, The New York Times Magazine, 2026", wk: "Week 1", end: 1, time: "1 sitting", why: "Start here, this weekend if you like. It gets your first tick on the board.", url: "https://www.nytimes.com/2026/09/12/magazine/naomi-klein-astra-taylor-interview.html" },
       { id: "word-for-world", k: "Novel", t: "The Word for World Is Forest", by: "Ursula K. Le Guin", wk: "Weeks 1–2", end: 2, time: "3.5 h", why: "A short, fast novel about colonial extraction. Starting with fiction keeps reading from turning into homework, and it gets you a finished book by week 2." },
       { id: "capitalist-realism", k: "Book", t: "Capitalist Realism", by: "Mark Fisher", wk: "Week 3", end: 3, time: "2 h", why: "Your shortest full-length nonfiction book. It's theory-heavy, so it sits between two novels." },
