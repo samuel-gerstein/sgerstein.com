@@ -3,7 +3,7 @@
 # featured: true puts it on the home page (2 or 3 works best alongside featured papers).
 
 - id: social-algorithms
-  title: Local AI governance and the community dynamics of data centers
+  title: Studying how U.S. localities govern AI and how data centers affect host communities
   # TODO (Samuel): decide how to word this affiliation (see note from Claude).
   org: Social Algorithms Group (Prof. Karrie Karahalios)
   dates: 2025 – present
@@ -15,7 +15,7 @@
   featured: true
 
 - id: ibm-climate
-  title: Representation fusion for climate foundation models
+  title: Extraction and Fusion of Neural Representations From Existing Climate Models
   org: IBM-Illinois Discovery Accelerator Institute
   dates: 2024 – 2025
   summary: Team project extending IBM/NASA's Prithvi climate foundation model with graph-based and multimodal representations for weather, crop, and climate-risk forecasting.
@@ -31,7 +31,7 @@
     poster: /posters/neural-representations-climate-models.webp
 
 - id: contextual-engineering
-  title: Contextual engineering for community water systems
+  title: Analyzing community interviews to inform water-system design
   org: Contextual Engineering Research Group, UIUC
   dates: 2023
   summary: Qualitative and computational methods to center community needs in the design of water and power infrastructure.
@@ -46,7 +46,7 @@
     poster: /posters/qualitative-coding-contextual-engineering.webp
 
 - id: fau-federated
-  title: Federated learning for smart grids
+  title: Applying federated learning to smart-grid forecasting
   org: Florida Atlantic University (Dr. Zhen Ni)
   dates: 2021 – 2022
   summary: Federated learning approaches for forecasting in carbon-neutral smart homes and grids.
