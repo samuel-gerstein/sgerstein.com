@@ -20,7 +20,7 @@
   dates: 2024 – 2025
   summary: Team project extending IBM/NASA's Prithvi climate foundation model with graph-based and multimodal representations for weather, crop, and climate-risk forecasting.
   details:
-    - Co-developed, with Dhanish Natarajan, neural network models predicting crop indemnities across 3,144 U.S. counties; adding GraphCast representations reduced test MSE by 15% (R² 0.70 → 0.74).
+    - Co-developed regression models predicting crop indemnities across 3,144 U.S. counties; adding GraphCast representations reduced test MSE by 15% (R² 0.70 → 0.74).
     - Contributed to design discussions for a multimodal architecture fusing satellite imagery with weather-station data across spatial and temporal scales.
     - Contributed to design discussions for extending Prithvi with graph-based representations; the team's framework improved masked-region and autoregressive prediction.
     - Presented at the UIUC Undergraduate Research Symposium (2025).
@@ -36,7 +36,7 @@
   dates: 2023
   summary: Qualitative and computational methods to center community needs in the design of water and power infrastructure.
   details:
-    - Co-developed, with Annabelle Epplin and Cathy Li, a qualitative coding process and master codebook for community interviews about a water system in Clarinero, Honduras, reaching moderate-to-substantial inter-rater agreement (Fleiss' κ = 0.56–0.69).
+    - Co-developed a qualitative coding process and master codebook for community interviews about a water system in Clarinero, Honduras, reaching moderate-to-substantial inter-rater agreement (Fleiss' κ = 0.56–0.69).
     - Modeled community characteristics via entropy maximization to inform water infrastructure design.
     - REU fellowship in Bodaway Gap, Arizona, on the Navajo Nation, studying ethnography in the algorithm design process.
     - Presented at the UIUC Undergraduate Research Symposium (2023).

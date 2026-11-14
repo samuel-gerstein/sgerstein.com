@@ -28,5 +28,5 @@
 - id: gfx-mangrove-test-stands
   title: Mangrove test stands for disaster resilience
   context: Grainger GFX Disaster Resilience Scholars (Dr. Luis Rodriguez) · 2023
-  summary: With Grace Pfeiffer and Aden Weiss, and in partnership with the nonprofit Caras Con Causa, co-designed an ebb-and-flow test stand for growing mangroves in bulk under controlled water level, salinity, and circulation, for student experiments at a school in Guaynabo, Puerto Rico, and traveled to Puerto Rico to work with Caras on site. Also designed the sensor-based pump control system (Raspberry Pi feedback loop), which REU students later built; a proposed reinforcement-learning controller was set aside for a simpler setup the partner's staff could maintain.
+  summary: In partnership with the nonprofit Caras Con Causa, co-designed an ebb-and-flow test stand for growing mangroves in bulk under controlled water level, salinity, and circulation, for student experiments at a school in Guaynabo, Puerto Rico, and traveled to Puerto Rico to work with Caras on site. Also designed the sensor-based pump control system (Raspberry Pi feedback loop), which REU students later built; a proposed reinforcement-learning controller was set aside for a simpler setup the partner's staff could maintain.
   tags: [Disaster resilience, Community partnership, Sensing & control]
