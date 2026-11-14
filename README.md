@@ -31,6 +31,8 @@ Saving commits to `main`, and the site redeploys in about a minute.
 | Posters | `public/posters/` (link them from `research.yaml`) |
 | CV PDF | `public/cv.pdf` |
 | Headshot | `public/headshot.jpg` (then set `photo` in `src/site.config.ts`) |
+| Personal page text and hobby tags | `src/content/pages/personal.md` |
+| Personal photos | files in `src/assets/photos/`, listed in `src/content/photos.yaml` |
 
 Search for `TODO` (or see the field descriptions in Pages CMS) to find what still needs your input.
 

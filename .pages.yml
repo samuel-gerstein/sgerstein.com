@@ -8,6 +8,11 @@ media:
     input: public/posters
     output: /posters
     categories: [image, document]
+  - name: photos
+    label: Personal photos
+    input: src/assets/photos
+    output: src/assets/photos
+    categories: [image]
   - name: files
     label: Site files (CV, headshot)
     input: public
@@ -129,6 +134,43 @@ content:
             type: rich-text
             description: Optional, e.g. "Last updated October 2026." Upload the PDF itself as cv.pdf under Media → Site files; the CV page and links appear once it exists.
             options: { format: markdown, media: false }
+
+  - name: personal-page
+    label: Personal
+    type: file
+    path: src/content/pages/personal.md
+    format: yaml-frontmatter
+    operations: { delete: false }
+    fields:
+      - { name: title, label: Page title, type: string }
+      - name: interests
+        label: Hobbies & interests
+        type: string
+        list: true
+        description: Short tags, e.g. "Cycling". The Personal page appears in the menu once it has tags, text, or photos.
+      - name: body
+        label: About you
+        type: rich-text
+        description: Optional. A few lines about life outside work.
+        options: { format: markdown, media: false }
+
+  - name: photos
+    label: Personal photos
+    type: file
+    path: src/content/photos.yaml
+    format: yaml
+    list: true
+    operations: { delete: false }
+    fields:
+      - name: image
+        label: Photo
+        type: image
+        required: true
+        description: JPG or PNG. iPhone photos may be HEIC; export them as JPG (or set Camera → Formats → Most Compatible). Turn off location when sharing, since the original file is public on GitHub.
+        options: { media: photos }
+      - { name: caption, label: Caption, type: string }
+      - { name: album, label: Album, type: string, description: 'Optional. Photos with the same album name are grouped, e.g. "Cross-country bike trip, 2026".' }
+      - { name: alt, label: Description for screen readers, type: string, description: Optional. The caption is used if empty. }
 
   - name: publications
     label: Publications

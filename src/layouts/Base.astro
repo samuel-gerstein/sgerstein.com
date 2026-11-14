@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { site } from '../site.config';
 import EmailLink from '../components/EmailLink.astro';
 import { hasCv } from '../lib/cv';
+import { hasPersonal } from '../lib/personal';
 
 interface Props {
   title?: string;
@@ -13,7 +14,9 @@ const { title, description = site.description } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.name;
 const canonical = new URL(Astro.url.pathname, site.url);
 const path = Astro.url.pathname;
-const nav = site.nav.filter((item) => hasCv || item.href !== '/cv/');
+const nav = site.nav.filter(
+  (item) => (hasCv || item.href !== '/cv/') && (hasPersonal || item.href !== '/personal/'),
+);
 ---
 
 <!doctype html>
@@ -94,6 +97,6 @@ const nav = site.nav.filter((item) => hasCv || item.href !== '/cv/');
   .foot-links :global(a:hover) { color: var(--accent); }
   @media (max-width: 640px) {
     .in { flex-direction: column; align-items: flex-start; }
-    nav { gap: 16px; width: 100%; }
+    nav { gap: 6px 16px; width: 100%; flex-wrap: wrap; overflow-x: visible; }
   }
 </style>

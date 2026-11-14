@@ -1,0 +1,6 @@
+# Personal photos, shown on the Personal page in this order.
+# image: a file in src/assets/photos/ (JPG, PNG, WebP or AVIF; convert iPhone HEIC photos to JPG first).
+# caption: optional, shown under the photo.
+# album: optional; photos with the same album name are grouped under that heading.
+# alt: optional description for screen readers; the caption is used if empty.
+[]

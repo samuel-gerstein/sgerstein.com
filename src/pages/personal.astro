@@ -1,0 +1,79 @@
+---
+import { getEntry, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { getOrdered } from '../lib/collections';
+import { photoFile } from '../lib/photos';
+import { hasPersonal } from '../lib/personal';
+
+const page = await getEntry('pages', 'personal');
+if (!page) throw new Error('Missing src/content/pages/personal.md');
+const { Content } = await render(page);
+
+// Photos keep their order from photos.yaml; ones sharing an album are grouped.
+const photos = await Promise.all(
+  (await getOrdered('photos')).map(async (p) => {
+    const img = photoFile(p.data.image);
+    const full = await getImage({ src: img, width: Math.min(img.width, 2000), format: 'webp' });
+    return { ...p.data, img, full: full.src };
+  }),
+);
+const albums: { name: string; photos: typeof photos }[] = [];
+for (const p of photos) {
+  const name = p.album ?? '';
+  let album = albums.find((a) => a.name === name);
+  if (!album) albums.push((album = { name, photos: [] }));
+  album.photos.push(p);
+}
+const heading = (name: string) => name || (albums.length > 1 ? 'More photos' : 'Photos');
+---
+
+<Base title={page.data.title ?? 'Personal'}>
+  <header class="page-head">
+    <h1>{page.data.title ?? 'Personal'}</h1>
+    {
+      page.data.interests.length > 0 && (
+        <div class="tags">
+          {page.data.interests.map((t) => (
+            <span class="tag">{t}</span>
+          ))}
+        </div>
+      )
+    }
+    <div class="prose"><Content /></div>
+  </header>
+
+  {!hasPersonal && <p class="note">Nothing here yet.</p>}
+
+  {
+    albums.map((album) => (
+      <section>
+        <h2 class="section">{heading(album.name)}</h2>
+        <div class="gallery">
+          {album.photos.map((p) => (
+            <figure>
+              <a href={p.full}>
+                <Image
+                  src={p.img}
+                  alt={p.alt ?? p.caption ?? ''}
+                  widths={[400, 800]}
+                  sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 340px"
+                />
+              </a>
+              {p.caption && <figcaption>{p.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  .tags { margin-bottom: 20px; }
+  .gallery { columns: 3 260px; column-gap: 14px; }
+  figure { break-inside: avoid; margin: 0 0 14px; }
+  figure a { display: block; }
+  figure :global(img) { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--rule); }
+  figcaption { color: var(--muted); font-size: 14px; padding: 6px 2px 0; }
+</style>

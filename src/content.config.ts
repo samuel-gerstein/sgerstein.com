@@ -153,4 +153,15 @@ const education = defineCollection({
   }),
 });
 
-export const collections = { pages, publications, research, projects, teaching, news, media, honors, education };
+const photos = defineCollection({
+  loader: yamlList('src/content/photos.yaml'),
+  schema: z.object({
+    order: z.number(),
+    image: z.string(),
+    caption: optText,
+    album: optText,
+    alt: optText,
+  }),
+});
+
+export const collections = { pages, publications, research, projects, teaching, news, media, honors, education, photos };

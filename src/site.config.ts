@@ -34,5 +34,6 @@ export const site = {
     { label: 'Writing', href: '/writing/' },
     { label: 'Teaching', href: '/teaching/' },
     { label: 'CV', href: '/cv/' },
+    { label: 'Personal', href: '/personal/' },
   ],
 };
