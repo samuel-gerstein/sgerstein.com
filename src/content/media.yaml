@@ -9,7 +9,7 @@
   outlet: Smile Politely
   date: 2026-08-18
   url: https://www.smilepolitely.com/opinion/hyperscale-ai-data-centers-are-not-inevitable/
-  summary: Co-written op-ed on the local costs of hyperscale data centers and the case for Champaign County to restrict them.
+  summary: Op-ed co-written with Bhavana Bheem on the local costs of hyperscale data centers and the case for Champaign County to restrict them.
 
 - id: public-i-data-centers
   kind: press
@@ -17,7 +17,7 @@
   outlet: Public i
   date: 2026-06-01
   url: https://publici.ucimc.org/2026/06/data-centers-in-champaign-county-a-conversation-with-uiuc-computer-science-students/
-  summary: Interview by Amy Young with two fellow UIUC computer science students and me.
+  summary: Interview by Amy Young with Bhavana Bheem, another UIUC computer science student, and me.
 
 - id: wptv-climate-strike
   kind: press
