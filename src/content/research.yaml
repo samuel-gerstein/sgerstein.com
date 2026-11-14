@@ -20,8 +20,7 @@
   dates: 2024 – 2025
   summary: Team project extending IBM/NASA's Prithvi climate foundation model with graph-based and multimodal representations for weather, crop, and climate-risk forecasting.
   details:
-    - Built the traditional statistical models, including the linear regression baseline, for predicting crop indemnities across 3,144 U.S. counties.
-    - Helped debug the team's neural network and analyze its outputs and errors; adding GraphCast representations reduced its test MSE by 15% (R² 0.70 → 0.74).
+    - Co-developed statistical and neural network models predicting crop indemnities across 3,144 U.S. counties; adding GraphCast representations reduced test MSE by 15% (R² 0.70 → 0.74).
     - Contributed to design discussions for a multimodal architecture fusing satellite imagery with weather-station data across spatial and temporal scales.
     - Contributed to design discussions for extending Prithvi with graph-based representations; the team's framework improved masked-region and autoregressive prediction.
     - Presented at the UIUC Undergraduate Research Symposium (2025).
